@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shirzan Library</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/library.css?v=5" />
+  <link rel="preload" as="image" href="assets/img/waterfall-scene.jpg">
+  <link rel="preload" href="assets/img/library-entrance.png" as="image">
+  <!-- === Canon Crest Icons === -->
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/icons/favicon-64.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+<!-- <link rel="manifest" href="manifest.json"> -->
+
+</head>
+
+<body>
+  <!-- === Hero wrapper === -->
+  <section id="hero" class="hero">
+    <!-- Hero image/art -->
+    <!-- <img src="assets/img/front-door.jpg" alt="Library front door"> -->
+
+    <!-- Bramble bubble overlay -->
+    <div id="bramble-bubble" class="speech-bubble" hidden>
+      <div class="bubble-body" id="brambleTxt"></div>
+      <button class="bubble-close" id="brambleClose" aria-label="close">✕</button>
+    </div>
+  </section>
+
+  <!-- === Main Content === -->
+  <main id="page">
+  <div id="library-entrance">
+  <div class="entrance-container">
+    <img id="library-entrance-img" src="assets/img/library-entrance.png" alt="Library Entrance">
+  </div>
+
+
+
+      <a id="library-card" href="toc.html" aria-label="Enter the Shirzan Library">
+        <img src="assets/img/library-card.png" alt="Shirzan Library Card">
+      </a>
+
+      <!-- Hotspots -->
+      <button id="armor-hotspot" class="hotspot" aria-label="Knight in armor" type="button"></button>
+      <button id="cat-hotspot" class="hotspot" aria-label="Cat (front)" type="button"></button>
+      <button id="catback-hotspot" class="hotspot" aria-label="Cat (back)" type="button"></button>
+      <button id="crest-hotspot" class="hotspot" aria-label="Crest" type="button"></button>
+      <button id="stag-hotspot" class="hotspot" aria-label="Stag hotspot" type="button"></button>
+
+      <!-- Bubbles -->
+      <div id="armor-bubble" class="speech-bubble" hidden>Cat, any chance of some Civet coffee?</div>
+      <div id="cat-bubble" class="speech-bubble" hidden>Meow. It’ll be a while… I just ate.</div>
+      <div id="consent-bubble" class="speech-bubble" hidden>Meow: It is nice to have a pet but I'm not the one that has your library card.</div>
+      <div id="crest-bubble" class="speech-bubble" hidden></div>
+      <div id="stag-bubble" class="speech-bubble" hidden>
+        Once, four bold children followed a white stag to the hidden falls. While crossing, the ledge gave way and the waters whisked them into the world of Glimmerglass.
+      </div>
+
+      <!-- Waterfalls -->
+      <figure id="waterfall-cover" hidden aria-hidden="true">
+        <img src="assets/img/waterfall-scene.jpg" alt="">
+      </figure>
+      <figure id="waterfall-scene" hidden>
+        <img src="assets/img/waterfall-scene.jpg" alt="Waterfall vignette">
+      </figure>
+    </div>
+  </main>
+
+  <!-- === JS includes (only one clean path) === -->
+  <script src="js/library.js" defer></script>
+
+  <!-- === Kicked handler (triggers Bramble bubble overlay) === -->
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(location.search);
+    if (params.get('kicked') === 'integrity' && typeof ejectForForbiddenScrolls === 'function') {
+      ejectForForbiddenScrolls('integrity');   // uses your overlay bubble
+      if (history.replaceState) history.replaceState(null, '', location.pathname + location.hash);
+    }
+  });
+ <footer class="site-footer">
+  <div class="footer-inner">
+    <span id="cc-year"></span> © Ross A. Kennedy · House of Shirzan — All rights reserved.
+  </div>
+</footer>
+
+<script>
+  // Auto-year + Under-Construction gate
+  (function () {
+    const y = document.getElementById('cc-year');
+    if (y) y.textContent = new Date().getFullYear();
+
+    document.addEventListener('click', function (e) {
+      const a = e.target.closest && e.target.closest('a.locked, a[data-locked="true"]');
+      if (!a) return;
+      e.preventDefault();
+      window.location.href = '/under-construction.html';
+    });
+  })();
+</script>
+<footer class="site-copyright">
+  © House of Shirzan — All original text, images, and layouts. Public-domain texts are credited where used.
+  <script defer src="js/library.js"></script>
+
+</footer>
+
+</body>
+</html>

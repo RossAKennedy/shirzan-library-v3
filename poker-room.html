@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Dark Arts Poker Room</title>
+  <!-- in <head> -->
+<link rel="stylesheet" href="css/poker-room.css">
+
+<!-- near the bottom, just before </body> -->
+<script src="library/bubbles.js"></script>
+
+ 
+
+</head>
+<body>
+  <div class="poker-room-grid">
+    <!-- Left column for navigation (links) -->
+    <nav class="poker-nav">
+      <h3>Restricted · Contents</h3>
+      <ul>
+        <li><a href="dark-arts.html">🕯️ Dark Arts Chamber</a></li>
+        <li><a href="purgatory.html?kicked=integrity">📜 Forbidden Scroll</a></li>
+        <li><a href="wit-worth-stealing/poker-night.html">🎭 Wit Worth Stealing</a></li>
+        <li><a href="index.html">← Back to Library</a></li>
+      </ul>
+    </nav>
+
+    <!-- Center column for image and hotspots -->
+    <div class="poker-image-wrap">
+      <img src="assets/img/dark-arts-poker.png" alt="Dark Arts Poker Scene">
+
+     <!-- Hotspot for Poe -->
+<div class="hotspot poe-hotspot" aria-label="Poe"></div>
+<div class="balloon poe-balloon"style="top: 11%; left: 20%;">“This Chamber has <strong>Poe</strong>-tential.”<span class="tail"></span></div>
+
+<!-- New Hotspot for Iron Maiden Quote -->
+<div class="hotspot iron-maiden-hotspot" aria-label="Iron Maiden" style="top: 20%; left: -8%;"></div>
+<div class="balloon iron-maiden-balloon" style="top: 11%; left: 3%;">“Help, Help, I'm being repressed.”<span class="tail"></span></div>
+
+<!-- Hotspot for Crow -->
+<div class="hotspot crow-hotspot" aria-label="Crow"></div>
+<div class="balloon crow-balloon">“Play fair. We don’t want anybody eating crow.”<span class="tail"></span></div>
+
+<!-- Hotspot for Wolf–Lamb–Donkey (trio) -->
+<div class="trio-zone" aria-label="Poker table conversation">
+  <!-- Adjust the trio hotspot to span across the wolf, lamb, and donkey -->
+  <div class="hotspot trio-hotspot" style="top: 42%; left: 17%; width: 40%; height: 12%;"></div> <!-- Spans the whole trio -->
+  <div id="wolf-balloon"   class="balloon wolf-balloon" style="top: 40%; left: 5%;">“Hey Donk, I know what you have.”</div>
+  <div id="sheep-balloon"  class="balloon sheep-balloon" style="top: 30%; left: 25%;">“I don't give a lamb.”</div>
+  <div id="donkey-balloon" class="balloon donkey-balloon" style="top: 65%; left: 35%;">“Assuming makes an Ass out of U and Me.”</div>
+</div>
+
+
+<!-- Hotspot for Dog -->
+<div class="hotspot dog-hotspot" aria-label="Dog"></div>
+<div class="balloon dog-balloon">“Ruff hand… but I’ll play it.”<span class="tail"></span></div>
+
+<!-- Hotspot for Squirrel -->
+<div class="hotspot squirrel-hotspot" aria-label="Squirrel"></div>
+<div class="balloon squirrel-balloon">“Look at the size of my nuts…”<span class="tail"></span></div>
+<div id="poker-room">
+  <div></div>
+
+  <div id="poker-scene">
+    <img src="assets/img/your-image.jpg" alt="">
+    <div id="hotspot-trio"
+         class="hotspot"
+         data-bubbles="poe-bubble,dog-bubble,squirrel-bubble"
+         style="left: 60%; top: 45%;"></div>
+
+    <div id="poe-bubble" class="bubble" style="left:55%;top:30%;">This room has Poe-tential.</div>
+    <div id="dog-bubble" class="bubble" style="left:65%;top:50%;">Woof hand, but I'll play it.</div>
+    <div id="squirrel-bubble" class="bubble" style="left:70%;top:60%;">Look at the size of my nuts.</div>
+  </div>
+
+  <div></div>
+</div>
+
+    <!-- Right column for more rooms -->
+    <nav class="more-rooms">
+      <h3>More Rooms</h3>
+      <ul>
+        <li><a href="under-construction-alchemy.html">⚗️ Alchemy</a></li>
+        <li><a href="under-construction-illusions.html">🪞 Illusions</a></li>
+        <li><a href="under-construction.html">📚 Records</a></li>
+        <li><a href="under-construction-philosophy.html">⚖️ Philosophy</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="actions">
+    <a href="../index.html">← Back to Library</a>
+  </div>
+
+  <script>
+    // Function for showing balloon on hover
+    const showBalloon = (hotspotClass, balloonClass) => {
+      document.querySelector(hotspotClass).addEventListener("mouseenter", () => {
+        document.querySelector(balloonClass).style.display = "block";
+      });
+
+      document.querySelector(hotspotClass).addEventListener("mouseleave", () => {
+        document.querySelector(balloonClass).style.display = "none";
+      });
+    };
+
+    // Apply hover effect to hotspots
+    showBalloon('.poe-hotspot', '.poe-balloon');
+    showBalloon('.crow-hotspot', '.crow-balloon');
+    showBalloon('.trio-hotspot', '#wolf-balloon');
+    showBalloon('.trio-hotspot', '#sheep-balloon');
+    showBalloon('.trio-hotspot', '#donkey-balloon');
+    showBalloon('.dog-hotspot', '.dog-balloon');
+    showBalloon('.squirrel-hotspot', '.squirrel-balloon');
+  </script>
+  <script>
+// Function to show trio balloons sequentially
+function showTrioBalloons() {
+  // Show the wolf balloon immediately
+  document.querySelector('#wolf-balloon').style.display = "block";
+
+  // Show the sheep balloon after 4 seconds (4000 milliseconds)
+  setTimeout(function() {
+    document.querySelector('#sheep-balloon').style.display = "block";
+  }, 4000);
+
+  // Show the donkey balloon after another 4 seconds (8000 milliseconds)
+  setTimeout(function() {
+    document.querySelector('#donkey-balloon').style.display = "block";
+  }, 8000);
+}
+
+// Event listener to show the trio balloons when the trio hotspot is hovered
+document.querySelector('.trio-hotspot').addEventListener('mouseenter', function() {
+  showTrioBalloons(); // Trigger the sequential display of trio balloons
+});
+
+// Function to show trio balloons sequentially
+function showTrioBalloons() {
+  // Show the wolf balloon immediately
+  document.querySelector('#wolf-balloon').style.display = "block";
+
+  // Show the sheep balloon after 4 seconds (4000 milliseconds)
+  setTimeout(function() {
+    document.querySelector('#sheep-balloon').style.display = "block";
+  }, 4000);  // 4000 milliseconds = 4 seconds
+
+  // Show the donkey balloon after another 4 seconds (8000 milliseconds)
+  setTimeout(function() {
+    document.querySelector('#donkey-balloon').style.display = "block";
+  }, 8000);  // 8000 milliseconds = 8 seconds
+}
+
+// Event listener to show the trio balloons when the trio hotspot is hovered
+document.querySelector('.trio-hotspot').addEventListener('mouseenter', function() {
+  showTrioBalloons();  // Trigger the sequential display of trio balloons
+});
+</script>
+<script>
+(function () {
+  // Utility
+  const $ = s => document.querySelector(s);
+
+  const wolf = $('#wolf-balloon');
+  const sheep = $('#sheep-balloon');
+  const donkey = $('#donkey-balloon');
+  const trio = document.querySelector('.trio-hotspot');
+
+  let trioTimers = [];
+  let trioRunning = false;
+
+  function hide(el){ if (el) el.style.display = 'none'; }
+  function show(el){ if (el) el.style.display = 'block'; }
+
+  function hideTrioBalloons() {
+    hide(wolf); hide(sheep); hide(donkey);
+  }
+
+  function cancelTrio() {
+    trioTimers.forEach(t => clearTimeout(t));
+    trioTimers = [];
+    trioRunning = false;
+    document.body.classList.remove('trio-running');
+    hideTrioBalloons();
+  }
+
+  function showTrioSequence() {
+    cancelTrio();                 // clean start
+    trioRunning = true;
+    document.body.classList.add('trio-running');
+
+    // 1) Wolf now
+    if (wolf) show(wolf);
+
+    // 2) Sheep after 4s
+    trioTimers.push(setTimeout(() => { if (sheep) show(sheep); }, 4000));
+
+    // 3) Donkey after 8s
+    trioTimers.push(setTimeout(() => {
+      if (donkey) show(donkey);
+      trioRunning = false;
+      document.body.classList.remove('trio-running');
+    }, 8000));
+  }
+
+  if (trio) {
+    trio.addEventListener('mouseenter', showTrioSequence);
+    trio.addEventListener('mouseleave', cancelTrio);
+  }
+
+  // Disable the three individual hotspots only while the trio is animating
+  // (Assumes you have .wolf-hotspot, .sheep-hotspot, .donkey-hotspot classes on those three.)
+  const blockIfTrioRunning = e => { if (trioRunning) e.stopPropagation(); };
+
+  ['.wolf-hotspot', '.sheep-hotspot', '.donkey-hotspot'].forEach(sel => {
+    const el = document.querySelector(sel);
+    if (el) {
+      el.addEventListener('mouseenter', blockIfTrioRunning, true);
+      el.addEventListener('mouseover',  blockIfTrioRunning, true);
+    }
+  });
+
+  // OPTIONAL: if you still have any legacy "hover to show" JS, remove those handlers
+  // from wolf/sheep/donkey here to prevent instant popping while trio is running.
+
+})();
+
+// Function to show trio balloons sequentially
+function showTrioBalloons() {
+  // Show the wolf balloon immediately
+  document.querySelector('#wolf-balloon').style.display = "block";
+  document.querySelector('#wolf-balloon').style.opacity = 1;
+
+  // Hide wolf balloon after 4 seconds (fade-out)
+  setTimeout(function() {
+    document.querySelector('#wolf-balloon').style.opacity = 0;
+  }, 4000);
+
+  // Show the sheep balloon after 4 seconds
+  setTimeout(function() {
+    document.querySelector('#sheep-balloon').style.display = "block";
+    document.querySelector('#sheep-balloon').style.opacity = 1;
+  }, 4000);
+
+  // Hide sheep balloon after 4 seconds (fade-out)
+  setTimeout(function() {
+    document.querySelector('#sheep-balloon').style.opacity = 0;
+  }, 8000);
+
+  // Show the donkey balloon after another 4 seconds
+  setTimeout(function() {
+    document.querySelector('#donkey-balloon').style.display = "block";
+    document.querySelector('#donkey-balloon').style.opacity = 1;
+  }, 8000);
+
+  // Hide donkey balloon after 4 seconds (fade-out)
+  setTimeout(function() {
+    document.querySelector('#donkey-balloon').style.opacity = 0;
+  }, 12000);
+}
+
+// Event listener to show the trio balloons when the trio hotspot is hovered
+document.querySelector('.trio-hotspot').addEventListener('mouseenter', function() {
+  showTrioBalloons();  // Trigger the sequential display of trio balloons
+});
+
+</script>
+<script>
+(function () {
+  const $ = s => document.querySelector(s);
+
+  const trioHotspot = $('.trio-hotspot');
+  const wolf = $('#wolf-balloon');
+  const sheep = $('#sheep-balloon');
+  const donkey = $('#donkey-balloon');
+
+  // Helper functions
+  const hide = el => { if (el) { el.style.opacity = 0; setTimeout(() => el.style.display = 'none', 1000); } };
+  const show = el => { if (el) { el.style.display = 'block'; el.style.opacity = 1; } };
+
+  // Hide all trio balloons at start
+  hide(wolf); hide(sheep); hide(donkey);
+
+  // Sequential trio show/hide
+  function showTrioSequence() {
+    // Clean start
+    [wolf, sheep, donkey].forEach(b => hide(b));
+
+    // Wolf immediately
+    show(wolf);
+    setTimeout(() => hide(wolf), 4000);
+
+    // Sheep after 4s
+    setTimeout(() => { show(sheep); setTimeout(() => hide(sheep), 4000); }, 4000);
+
+    // Donkey after 8s
+    setTimeout(() => { show(donkey); setTimeout(() => hide(donkey), 4000); }, 8000);
+  }
+
+  if (trioHotspot) {
+    trioHotspot.addEventListener('mouseenter', showTrioSequence);
+  }
+
+  // Permanently disable individual trio hotspots
+  ['.wolf-hotspot', '.sheep-hotspot', '.donkey-hotspot'].forEach(sel => {
+    const el = document.querySelector(sel);
+    if (el) el.style.pointerEvents = 'none';
+  });
+
+  // Reactivate Poe, Dog, and Squirrel
+  ['.poe-hotspot', '.dog-hotspot', '.squirrel-hotspot'].forEach(sel => {
+    const el = document.querySelector(sel);
+    if (el) el.style.pointerEvents = 'auto';
+  });
+})();
+</script>
+<!-- Load bubbles.js -->
+<script src="js/bubbles.js?v=1" defer></script>
+
+<!-- Sanity check -->
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    if (typeof window.showBalloon !== 'function') {
+      console.error('bubbles.js not loaded or no showBalloon() on window');
+    } else {
+      console.log('bubbles.js loaded ✔');
+    }
+  });
+</script>
+
+
+</body>
+</html>

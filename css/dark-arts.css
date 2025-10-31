@@ -1,0 +1,338 @@
+/* ==========================================================================
+   DARK ARTS ROOM — LAYOUT & INTERACTIVITY SCAFFOLD
+   --------------------------------------------------------------------------
+   Structure Overview:
+   • 3-column responsive grid (.page)
+     - Left  : .toc (Dark Arts Archives)
+     - Center: .stage (poker image, hotspots, balloons)
+     - Right : .toc (Further Reading)
+   • Balloons and hotspots are absolutely positioned inside .image-wrap.
+     The overlay maintains correct hit-testing order (z-index layering).
+
+   Key Behaviors:
+   • TOCs are fully transparent with centered content (flex layout)
+   • Stage uses parchment-background-canon.png for its inner panel
+   • Balloons may overflow stage boundaries gracefully
+   • Grid aligns vertically centered against the main stage
+
+   Adjustable Parameters:
+   • :root --inch ............ Approximate 1" padding around the stage
+   • .page align-items ....... Controls vertical centering (start|center)
+   • .toc padding ............ Adjusts spacing around TOC contents
+   • .poker-image max-width .. Governs central image scale
+   • .balloon background ..... Uses parchment.jpg, no tails
+
+   Version Control Notes:
+   - Scaffold verified functional (center alignment, transparency working)
+   - Future tweaks: responsive text scaling, subtle glow or parchment depth
+   - Keep all custom edits below this line for clarity and merges
+
+   ========================================================================== */
+
+:root{
+  --inch: 96px;           /* rough inch for the stage padding */
+}
+
+*{ box-sizing: border-box; }
+html,body{ margin:0; }
+
+body{
+  background: url('../assets/img/parchment-background-canon.png') center/cover fixed no-repeat;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  color:#1a1307;
+}
+
+/* 3-column page */
+.page{
+  display:grid;
+  grid-template-columns: minmax(220px,1fr) minmax(320px,760px) minmax(220px,1fr);
+  gap: clamp(12px, 2vw, 24px);
+  align-items:start;
+  padding: clamp(12px, 3vw, 32px);
+}
+
+/* Left/Right TOC cards */
+.toc{
+  background: rgba(243, 224, 178, 0.72);
+  backdrop-filter: blur(1px);
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08);
+}
+.toc h2{ margin: 0 0 8px; font-size: 1.1rem; }
+.toc ul{ list-style: none; margin: 0; padding: 0; }
+.toc li{ padding: 6px 0; }
+.toc a{ color: #3a2a12; text-decoration: none; border-bottom: 1px dotted rgba(0,0,0,.25); }
+.toc a:hover{ border-bottom-style: solid; }
+
+/* Center column container + stage */
+.center{ display:flex; justify-content:center; }
+.stage{
+  position: relative;
+  overflow: visible;                   /* balloons can overflow */
+  padding: var(--inch);                /* 1" parchment margin */
+  background: url('../assets/img/parchment-background-canon.png') center/cover no-repeat;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.15);
+}
+
+/* Image + exact overlay box */
+.image-wrap{
+  position: relative;                  /* anchors overlay/hotspots/balloons to the image */
+  display: inline-block;
+  line-height: 0;
+}
+.poker-image{
+  display:block;
+  max-width: min(64vw, 680px);
+  height:auto;
+  border-radius: 8px;
+  user-select:none;
+  -webkit-user-drag: none;
+}
+
+/* 👇 This is the key: overlay matches the image rect */
+/* Ensure overlay sits above the image and receives events */
+.overlay{
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: auto;     /* MUST be auto so children can receive events */
+}
+
+/* Hotspots above overlay, guaranteed hit-testable */
+.image-wrap .hotspot{
+  position: absolute;
+  z-index: 3;
+  display: block;           /* so width/height % apply */
+  pointer-events: auto;
+  background: transparent;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Balloons above everything */
+.image-wrap .balloon{
+  position: absolute;
+  z-index: 4;
+  pointer-events: auto;
+}
+
+/* (Optional while tuning) */
+#stage.debug-hotspots .hotspot{ outline: 2px dashed rgba(0,128,255,.35); }
+
+/* Balloons (no tails) */
+.balloon{
+  display: none;                       /* default hidden */
+  opacity: 0;
+  transition: opacity .4s ease;
+  background: url('../assets/img/parchment.jpg') center/cover no-repeat;
+  border:1px solid rgba(0,0,0,.22);
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.18);
+  padding: 10px 12px;
+  max-width: 40ch;
+}
+.balloon p{ margin:0; line-height:1.25; }
+.balloon.show{ display:block; opacity:1; }
+.balloon.fade{ opacity:0; }
+
+/* Make sure nothing decorative blocks clicks */
+.parchment-layer, .frame, .bg-cover { pointer-events: none !important; }
+.overlay{
+  position: absolute;
+  inset: 0;
+  pointer-events: auto;   /* keep this so buttons receive hover */
+  z-index: 2;             /* <-- ensure overlay sits above the image */
+}
+
+/* Make sure the actual interactive children sit above the overlay */
+.image-wrap .hotspot,
+.image-wrap .balloon{
+  position: absolute;
+  z-index: 3;             /* <-- above overlay */
+  pointer-events: auto;
+}
+/* Overlay must sit above the image */
+.overlay{
+  position: absolute;
+  inset: 0;
+  pointer-events: auto;   /* overlay itself allows events */
+  z-index: 2;
+}
+
+/* Hotspots must be above overlay and block-level for width/height % */
+.image-wrap .hotspot{
+  position: absolute;
+  z-index: 3;
+  pointer-events: auto;
+  display: block;         /* <-- ensures width/height take effect */
+  background: transparent;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Balloons above hotspots */
+.image-wrap .balloon{
+  position: absolute;
+  z-index: 4;
+  pointer-events: auto;
+}
+.column-1,
+.column-3 {
+  background-color: transparent;
+}
+#toc {
+  background-color: rgba(255, 255, 255, 0.1); /* 10% white overlay */
+}
+.column-1,
+.column-3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* centers vertically */
+  align-items: center;       /* centers horizontally */
+  text-align: center;        /* centers the text itself */
+  background-color: transparent;  /* keep it see-through */
+  padding: 1rem;             /* optional: add breathing space */
+}
+.column-1 ul,
+.column-3 ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 80%;
+}
+/* TOC panels: fully transparent + centered content */
+.toc{
+  background: transparent;        /* no tint */
+  backdrop-filter: none;
+  border: none;
+  box-shadow: none;
+
+  /* center the contents inside the panel */
+  display: flex;
+  flex-direction: column;
+  align-items: center;             /* horizontal center */
+  justify-content: center;         /* vertical center */
+  text-align: center;
+  padding: 0.75rem;
+  border-radius: 12px;             /* keep the rounded look, optional */
+}
+.toc h2{ margin: 0 0 8px; font-size: 1.1rem; }
+.toc ul{ list-style: none; margin: 0; padding: 0; }
+.toc li{ padding: 6px 0; }
+.toc a{ color: #3a2a12; text-decoration: none; border-bottom: 1px dotted rgba(0,0,0,.25); }
+.toc a:hover{ border-bottom-style: solid; }
+/* was: align-items:start; */
+align-items: center;
+/* Centered, transparent TOCs on both sides */
+.page {
+  display: grid;
+  grid-template-columns: minmax(220px,1fr) minmax(320px,760px) minmax(220px,1fr);
+  gap: clamp(12px, 2vw, 24px);
+  align-items: center;  /* ✅ center vertically instead of top */
+  padding: clamp(12px, 3vw, 32px);
+}
+
+/* Transparent, centered text block styling */
+.toc {
+  background: transparent;      /* ✅ remove parchment tint */
+  backdrop-filter: none;
+  border: none;
+  box-shadow: none;
+
+  display: flex;                /* ✅ center contents */
+  flex-direction: column;
+  align-items: center;          /* horizontal centering */
+  justify-content: center;      /* vertical centering */
+  text-align: center;
+
+  padding: 1rem;
+  border-radius: 12px;
+}
+
+.toc h2 { 
+  margin: 0 0 8px; 
+  font-size: 1.1rem; 
+}
+
+.toc ul { 
+  list-style: none; 
+  padding: 0; 
+  margin: 0; 
+}
+
+.toc li { padding: 6px 0; }
+
+.toc a { 
+  color: #3a2a12; 
+  text-decoration: none; 
+  border-bottom: 1px dotted rgba(0,0,0,.25); 
+}
+
+.toc a:hover { border-bottom-style: solid; }
+/* --- Poe scroller below the image --- */
+.center {
+  display: flex;
+  flex-direction: column;     /* stack stage + scroller */
+  align-items: center;
+  gap: clamp(12px, 2vw, 20px);
+}
+
+.poe-scroll{
+  width: min(64vw, 680px);
+  height: 140px;              /* tweak to taste */
+  overflow: hidden;
+  background: transparent;    /* let parchment show through */
+  border-radius: 10px;
+  position: relative;
+  /* soft fade top/bottom for elegance */
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+}
+
+.poe-scroll-inner{
+  position: absolute;
+  inset: 0;
+  padding: 6px 8px;
+  animation: poe-scroll 32s linear infinite;
+}
+
+@keyframes poe-scroll{
+  0%   { transform: translateY(100%); }
+  100% { transform: translateY(-100%); }
+}
+
+.poe-scroll p{
+  margin: 0 0 .75em;
+  line-height: 1.35;
+  text-align: center;
+  font-size: 0.98rem;
+}
+
+/* --- Copyright line (room + front door reuse) --- */
+.room-copyright,
+.site-copyright{
+  width: min(64vw, 680px);
+  text-align: center;
+  font-size: .85rem;
+  opacity: .75;
+  margin-top: 6px;
+}
+/* --- Always Transparent Copyright Blocks --- */
+.room-copyright,
+.site-copyright {
+  background: none !important;       /* remove any background fill */
+  background-color: transparent !important;  /* enforce transparency */
+  backdrop-filter: none !important;  /* disable blur overlays */
+  box-shadow: none !important;       /* remove any drop shadow */
+  border: none !important;           /* ensure no frame line appears */
+}
+.balloon { transition: opacity .55s ease, transform .55s ease; }

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Under Construction — Shirzan Library</title>
+
+  <style>
+    /* Page theme */
+    body.room--under-construction{
+      background:#0b0b0d;
+      color:#f0e6d2;
+      font-family: Georgia, Garamond, serif;
+      text-align:center;
+      padding: 2rem; /* ← fixed from 2re */
+    }
+
+    /* Layout */
+    .uc-wrap{min-height:70vh;display:grid;place-items:center}
+    .uc-card{
+      max-width:760px;width:100%;
+      background:#1a1712;
+      border:1px solid #3a2f22;
+      border-radius:16px;
+      padding:24px 20px;
+      box-shadow:0 8px 28px rgba(0,0,0,.45);
+    }
+
+    .uc-title{margin:.25rem 0 .5rem;font-size:1.4rem}
+    .uc-p{margin:.25rem 0 0;line-height:1.55;opacity:.9}
+
+    /* Image */
+    .uc-img{
+      display:block;margin:0 auto 12px;
+      max-width:320px;width:90%;height:auto;
+      image-rendering:auto; /* be sure no filters hide it */
+    }
+
+    /* Buttons */
+    .uc-links{margin-top:14px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+    .btn{
+      padding:10px 14px;border:1px solid #c9ae76;border-radius:10px;text-decoration:none;color:#f0e6d2
+    }
+    .btn:hover{background:#3a2f22}
+    .subtle{opacity:.75}
+    footer{margin-top:18px;opacity:.7;font-size:.95rem}
+  </style>
+</head>
+
+<body class="room--under-construction">
+  <div class="uc-wrap">
+    <div class="uc-card">
+      <!-- Update the src path to where your image actually lives -->
+      <img class="uc-img" src="assets/img/under-construction.png" alt="Bramble says: Under Construction">
+
+      <h1 class="uc-title">Bramble says: “Patience, scholar!”</h1>
+      <p class="uc-p">This scroll is still being inked. Integrity first—no broken doors into the Library.</p>
+
+      <div class="uc-links">
+        <a class="btn" href="index.html">⬅ Back to the Front Door</a>
+        <a class="btn" href="toc.html">📚 Go to the TOC</a>
+        <a class="btn" href="https://www.patreon.com/cw/HouseofShirzan" target="_blank" rel="noopener">☕ Visit the Broker’s</a>
+      </div>
+
+      <footer>
+        <span id="uc-year"></span> © Ross A. Kennedy · House of Shirzan — All rights reserved.
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // Year + make 'locked' links route here too if clicked
+    (function(){
+      var y=document.getElementById('uc-year');
+      if(y) y.textContent=new Date().getFullYear();
+
+      document.addEventListener('click',function(e){
+        var a=e.target.closest && e.target.closest('a.locked, a[data-locked="true"]');
+        if(!a) return;
+        e.preventDefault();
+        window.location.href='under-construction.html'; // relative path (works locally + Netlify)
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,395 @@
+
+/* ===== Shirzan Library TOC — complete stylesheet ===== */
+
+/* Theme variables */
+:root{
+  --ink:#2b1b09;
+  --ink-soft:#4a3217;
+  --gold:#c9a85c;
+}
+
+*{ box-sizing: border-box; }
+html,body{ height:100%; margin:0; }
+
+/* Full-page parchment background; no page scroll */
+/* Canon parchment background — no tiling */
+body {
+  background-image: url('../assets/img/parchment-background-canon.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center center;
+  background-color: #f3e0b2; /* fallback */
+}
+
+
+/* Centered page frame that fills the viewport */
+.toc-page{
+  height: 100vh;            /* fill the viewport */
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 14px 16px 12px;
+  display: grid;
+  grid-template-rows: auto 1fr auto; /* header, grid, footer */
+  gap: 10px;
+  border: 1px solid rgba(120,80,40,.35);
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, rgba(255,240,205,.88), rgba(245,225,185,.88));
+}
+/* === DARK ARTS ROOM: parchment backdrop for bubbles === */
+#dark-arts,
+#balloon-zone,
+#bubble-zone {
+  position: relative;
+  z-index: 0; /* base stacking context */
+}
+
+/* parchment panel behind the balloons */
+#balloon-zone::before,
+#bubble-zone::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('../assets/img/parchment.jpg') center/cover no-repeat;
+  opacity: 0.85;              /* adjust transparency to taste */
+  border-radius: 12px;        /* match your page’s soft corners */
+  z-index: -1;                /* sits *behind* all bubbles */
+  pointer-events: none;       /* never blocks clicks */
+}
+
+/* make sure bubbles remain visible and clickable */
+.bubble {
+  position: relative;
+  z-index: 1;
+}
+/* === Dark Arts: mobile layout & type scaling === */
+@media (max-width: 768px){
+
+  /* 1) Stack the grid: image (portal) first, then TOC, then More */
+  .dark-arts-grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "portal"
+      "toc"
+      "more";
+    gap: 14px;
+    align-items: start;
+    margin-top: 10px;
+    padding: 0 10px;
+  }
+
+  .portal{ grid-area: portal; }
+  .dark-arts-grid .toc{ grid-area: toc; }
+  .dark-arts-grid .more{ grid-area: more; text-align: left; }
+
+  /* 2) Make the art full-width but not oversized */
+  .portal-wrap{
+    width: min(100%, 720px);
+    margin: 0 auto;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .portal-img{ width:100%; height:auto; display:block; }
+
+  /* 3) Comfortable typography for side columns */
+  .dark-arts-grid .toc,
+  .dark-arts-grid .more{
+    font-size: clamp(.92rem, 3.2vw, 1rem);
+    line-height: 1.45;
+  }
+  .dark-arts-grid .toc h2,
+  .dark-arts-grid .more h2{
+    font-size: clamp(1.05rem, 3.8vw, 1.2rem);
+    margin: 12px 0 6px;
+  }
+  .dark-arts-grid .toc li,
+  .dark-arts-grid .more li,
+  .dark-arts-grid .toc p,
+  .dark-arts-grid .more p{
+    font-size: clamp(.9rem, 3.0vw, .98rem);
+    line-height: 1.5;
+  }
+
+  /* 4) If any speech bubbles appear on this page, keep them readable but compact */
+  .speech-bubble{
+    max-width: 90vw;
+    font-size: clamp(.9rem, 3.2vw, 1rem);
+    padding: 10px 12px;
+  }
+}
+
+/* Header */
+.toc-header{
+  display:flex; align-items:baseline; justify-content:space-between;
+  padding: 6px 10px;
+  border-bottom: 1px solid rgba(120,80,40,.35);
+}
+.toc-header h1{
+  margin:0; font-size: clamp(20px, 2.4vw, 32px); letter-spacing: .5px;
+}
+.toc-header .subtitle{
+  margin:0; font-size: clamp(14px, 1.6vw, 18px); color: var(--ink-soft);
+}
+
+/* Header crest button */
+.crest-home {
+  display:flex; align-items:center; justify-content:center;
+  width:56px; height:56px; border-radius:50%;
+  border:1px solid rgba(120,80,40,.35);
+  background:linear-gradient(180deg, rgba(255,240,205,.9), rgba(245,225,185,.9));
+  text-decoration:none; margin-right:10px; flex:0 0 auto;
+  box-shadow:0 2px 6px rgba(0,0,0,.12);
+}
+.crest-home img { width:40px; height:40px; object-fit:contain; }
+.crest-home:hover { outline:2px solid var(--gold); outline-offset:2px; }
+
+/* Make TOC header title+crest sit nicely */
+.toc-header { display:flex; align-items:center; gap:10px; }
+.toc-header .title-wrap { display:flex; flex-direction:column; }
+
+/* Header link styling */
+.toc-heading-link { color:inherit; text-decoration:none; border-bottom:1px dashed #a07a3c; }
+.toc-heading-link:hover { border-bottom-color:transparent; color:#8b5b00; }
+
+/* Optional: small footer copyright */
+.toc-footer .copyright { margin-left:10px; opacity:.8; font-size:.95rem; }
+
+/* 3-column grid — only first 2 used */
+.toc-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  height: 100%;
+  overflow: hidden; /* prevent page scroll */
+}
+
+/* Columns can scroll internally if they overflow */
+.toc-col{
+  background:
+    linear-gradient(180deg, rgba(255,240,205,.72), rgba(245,225,185,.72));
+  border: 1px solid rgba(120,80,40,.35);
+  border-radius: 12px;
+  padding: 10px 12px;
+  overflow: auto;
+  scrollbar-width: thin;     /* Firefox */
+}
+.toc-col::-webkit-scrollbar{ width:8px; }
+.toc-col::-webkit-scrollbar-thumb{
+  background: rgba(120,80,40,.35);
+  border-radius: 8px;
+}
+
+/* Reserve the 3rd column visually */
+.toc-col--reserved{
+  opacity: .66;
+  display: grid; place-items: center;
+  font-style: italic; color: var(--ink-soft);
+}
+
+/* Section heads */
+.toc-col h2{
+  margin: 2px 0 8px;
+  font-size: clamp(16px, 1.8vw, 22px);
+  color: var(--ink);
+  border-bottom: 1px solid rgba(120,80,40,.3);
+  padding-bottom: 4px;
+}
+
+/* Lists */
+.toc-list{ list-style: none; margin: 0 0 10px; padding: 0; }
+.toc-list li{ margin: 6px 0; }
+.toc-list a{
+  text-decoration: none;
+  color: var(--ink);
+  font-size: clamp(14px, 1.4vw, 18px);
+  padding: 3px 4px;
+  border-radius: 6px;
+}
+.toc-list a:hover{ text-decoration: underline; }
+.toc-list a:focus-visible{
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* Footer */
+.toc-footer{
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 6px 10px;
+  border-top: 1px solid rgba(120,80,40,.35);
+}
+.toc-footer .back{
+  color: var(--ink);
+  text-decoration: none;
+  font-size: clamp(14px, 1.4vw, 18px);
+}
+.toc-footer .back:hover{ text-decoration: underline; }
+.toc-footer .motto{
+  font-variant: small-caps;
+  letter-spacing: .06em;
+  color: var(--ink-soft);
+  font-size: clamp(12px, 1.2vw, 16px);
+}
+
+/* === Medieval hover glow and illumination === */
+.toc-col h2 {
+  position: relative;
+  text-shadow:
+    0 0 4px rgba(201,168,92,.4),
+    0 0 10px rgba(201,168,92,.25);
+  transition: text-shadow .25s ease;
+}
+.toc-col h2:hover {
+  text-shadow:
+    0 0 6px rgba(255,220,120,.7),
+    0 0 18px rgba(201,168,92,.6);
+}
+
+.toc-list a {
+  position: relative;
+  color: var(--ink);
+  text-decoration: none;
+  transition: color .25s ease, text-shadow .25s ease;
+}
+.toc-list a:hover,
+.toc-list a:focus-visible {
+  color: var(--gold);
+  text-shadow:
+    0 0 6px rgba(255,215,140,.6),
+    0 0 16px rgba(255,230,180,.4);
+}
+
+.toc-header, .toc-footer {
+  background:
+    linear-gradient(180deg, rgba(255,240,205,.75), rgba(245,225,185,.75));
+  backdrop-filter: blur(3px);
+  border-radius: 8px;
+}
+/* ===========================
+   Oath / Banner notification
+   =========================== */
+.oath-banner {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  text-align: center;
+  background: rgba(243, 223, 180, 0.95);  /* parchment tone */
+  color: #2b1b09;
+  font-family: 'Garamond', serif;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  padding: 10px;
+  border-bottom: 1px solid rgba(100,60,20,0.25);
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: all 1.2s ease;
+  z-index: 999;
+}
+
+.oath-banner.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toc-footer .motto {
+  text-shadow: 0 0 6px rgba(255,215,140,.35);
+}
+.toc-footer .motto:hover {
+  color: var(--gold);
+  text-shadow: 0 0 12px rgba(255,215,140,.7);
+}
+/* Crest home button */
+.crest-home {
+  display:flex; align-items:center; justify-content:center;
+  width:56px; height:56px; border-radius:50%;
+  border:1px solid rgba(120,80,40,.35);
+  background:linear-gradient(180deg, rgba(255,240,205,.9), rgba(245,225,185,.9));
+  text-decoration:none; margin-right:10px; flex:0 0 auto;
+  box-shadow:0 2px 6px rgba(0,0,0,.12);
+}
+.crest-home img { width:40px; height:40px; object-fit:contain; }
+.crest-home:hover { outline:2px solid var(--gold); outline-offset:2px; }
+
+.toc-header { display:flex; align-items:center; gap:10px; }
+.toc-header .title-wrap { display:flex; flex-direction:column; }
+/* --- TOC header link styling --- */
+.toc-heading-link {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dashed #a07a3c;
+}
+.toc-heading-link:hover {
+  border-bottom-color: transparent;
+  color: #8b5b00;
+}
+.toc-list a[target="_blank"]::after {
+  content: " ↗";
+  font-size: .9em;
+  opacity: .7;
+  margin-left: 2px;
+}
+.toc-subhead {
+  margin-top: 0.5rem;
+  font-weight: 700;
+  color: #3a2b14; /* parchment-friendly dark brown */
+  list-style: none;
+}
+.toc-note-wide {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border-top: 2px solid #8b6b3e;
+  background-color: rgba(243, 224, 178, 0.4);
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1.05rem;
+  color: #3a2b14;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.toc-note-wide h3 {
+  font-family: 'EB Garamond', serif;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+}
+
+.toc-note-wide .qr-code {
+  display: block;
+  margin: 1rem auto 0 auto;
+  width: 120px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+/* Make the outer frame flexible */
+.toc-page{
+  min-height: 100vh;   /* was height:100vh; */
+  height: auto;        /* allow it to grow */
+}
+
+/* Let the grid reflow responsively */
+@media (max-width: 1100px){
+  .toc-grid{
+    grid-template-columns: 1fr 1fr; /* 2 columns */
+    overflow: visible;              /* allow content to grow */
+  }
+}
+
+@media (max-width: 720px){
+  .toc-grid{
+    grid-template-columns: 1fr;   /* single column stack */
+    gap: 12px;
+  }
+  .toc-col{ max-height: none; }   /* no internal scroll boxes on tiny screens */
+}
+
+/* If you still see clipping, ensure body can scroll */
+html, body { overflow-x: hidden; overflow-y: auto; }
+/* === Dark Arts chamber overrides === */
+.bubble, .balloon {
+  background-image: url("../assets/img/parchment.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(0,0,0,0.35);
+}

@@ -1,0 +1,1224 @@
+:root{
+  --bubble-shadow: 0 8px 24px rgba(0,0,0,.22);
+}
+
+/* === Canon Global Parchment Background === */
+body {
+  margin: 0;
+  color: #2b1b09;
+  font-family: "Georgia", "Garamond", serif;
+
+  /* Canon parchment background */
+  background-image: url('../assets/img/parchment-background-canon.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+  background-color: #f3e0b2; /* Canon tone fallback */
+
+  /* Subtle texture vignette */
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* === Canonical parchment background for full page === */
+body {
+  background: url('../assets/img/parchment-background-canon.png') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  font-family: Georgia, Garamond, serif;
+}
+
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center,
+              rgba(0,0,0,0) 60%,
+              rgba(0,0,0,0.25) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body{
+  background-image:url('../assets/img/parchment-background-canon.png') !important;
+  background-size:cover !important;
+  background-repeat:no-repeat !important;
+  background-attachment:fixed !important;
+  background-position:center center !important;
+  background-color:#f3e0b2 !important;
+}
+
+
+
+/* The wrapper anchors absolutely-positioned children */
+/* === Canon Crest (House of Shirzan) === */
+img.crest,
+.crest img {
+  width: clamp(120px, 15vw, 300px);
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  background: transparent !important;
+  border: none;
+  box-shadow: none;
+}
+
+.crest-wrap {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}
+
+.crest-wrap .tm {
+  position: absolute;
+  right: 4px;
+  top: 2px;
+  font: 700 .72rem/1 Georgia, Garamond, serif;
+  opacity: .75;
+  user-select: none;
+}
+
+.entrance-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.entrance-container img {
+  max-width: 90%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .entrance-container img {
+    width: 95%;
+  }
+}
+
+#library-entrance{
+  position: relative;
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+  outline: none;
+}
+#library-entrance > img{
+  display:block;
+  width:100%;
+  height:auto;
+  border-radius:12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.55);
+}
+
+/* Invisible click/hover zones (size/position to your image) */
+#armor-hotspot{  position:absolute; top: 16%; left: 82%; width: 11%; height: 25%; background:transparent; }
+#cat-hotspot{    position:absolute; top: 60%; left: 76%; width: 5%; height: 12%; background:transparent; }
+#catback-hotspot{position:absolute; top: 75%; left: 82%; width: 5%; height: 12%; background:transparent; }
+#crest-hotspot {
+  position: absolute;
+  top: 2%;      /* adjust to match crest location */
+  left: 38%;
+  width: 20%;
+  height: 25%;
+  background: transparent;
+  cursor: pointer;
+}
+
+
+/* Anchor each bubble near its speaker (you can nudge these) */
+#armor-bubble{ bottom: 60%; left: 70%; transform: translateX(-50%); z-index:5; }
+#cat-bubble{   bottom: 21%; left: 60%; transform: translateX(-50%); z-index:5; }
+#consent-bubble{ bottom: 18%; left: 63%; transform: translateX(-50%); z-index:5; }
+#crest-bubble{ bottom: 63%; left: 42%; transform: translateX(-50%);   z-index:5; }
+
+/* Optional: bubbles fade in/out a touch (matches your aesthetic) */
+.speech-bubble{ opacity: 0; transition: opacity .18s ease, transform .18s ease; }
+.speech-bubble[hidden]{ display: block !important; opacity: 0; } /* keep layout-free while hidden */
+.show-bubble{ opacity: 1 !important; transform: translateX(-50%) translateY(0); }
+
+
+/* Stag hotspot (position these to suit your art) */
+.hotspot{
+  position:absolute;
+  width:3.8%;
+  aspect-ratio:1/1;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+  cursor:pointer;
+}
+
+.hotspot:hover{transform:scale(1.08);background:rgba(255,255,255,.16)}
+/* Example placement for the stag — tweak as needed */
+#stag-hotspot{ top: 47%; left: 47%; }
+/* gentle pulse so it feels interactive without shouting */
+#stag-hotspot{
+  cursor: pointer;
+  outline: none;
+}
+@keyframes ringPulse { 0%{box-shadow:0 0 0 0 rgba(255,255,255,.25)}
+  100%{box-shadow:0 0 0 12px rgba(255,255,255,0)} }
+#stag-hotspot.idle-pulse{ animation: ringPulse 1.6s ease-out infinite; }
+@media (hover:hover){
+  #stag-hotspot:hover{ transform: scale(1.05); }
+}
+/* KEEP your base block exactly as-is */
+#library-card{
+  position: absolute;
+  top: 67%;
+  left: 22.3%;
+  width: 4.3%;
+  transform: rotate(-9deg) scale(1);
+  transform-origin: 58% 42%;
+  z-index: 6;
+  display: block;
+  cursor: pointer;
+  text-decoration: none;
+  outline: none;
+  filter: drop-shadow(0 8px 22px rgba(0,0,0,.45));
+  transition: transform .18s ease, filter .18s ease, opacity .18s ease;
+}
+#library-card img{ display:block; width:100%; height:auto; }
+
+/* Hover = enlarge (UNCHANGED from your values) */
+@media (hover:hover){
+  #library-card:hover{
+    transform: rotate(-5deg) scale(1.9);
+    filter: drop-shadow(0 16px 44px rgba(0,0,0,.55));
+  }
+}
+
+/* Single focus-visible that matches hover (REPLACES the later conflicting one) */
+#library-card:focus-visible{
+  transform: rotate(-5deg) scale(1.9);
+  box-shadow: 0 0 0 4px rgba(255,255,255,.65);
+  border-radius: 10px;
+}
+
+/* Whisper on desktop (keep your intent) */
+@media (hover:hover){
+  #library-card{ opacity: .22; }
+  #library-card:hover, #library-card:focus-visible{ opacity: 1; }
+}
+
+/* Touch devices: your larger default */
+@media (hover:none){
+  #library-card{
+    width: 8.5%;
+    transform: rotate(-6deg) scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Overlays don’t block clicks (you already have this) */
+#waterfall-cover, #waterfall-scene{ pointer-events: none; z-index: 2; }
+
+/* Make sure overlays never block clicks */
+#waterfall-cover, #waterfall-scene{ pointer-events: none; z-index: 2; }
+
+/* Optional: gentle “whisper” until hover (desktop only) */
+@media (hover:hover){
+  #library-card{ opacity: .22; }
+  #library-card:hover, #library-card:focus-visible{ opacity: 1; }
+}
+
+/* Mobile/touch: keep it a bit larger by default (no hover) */
+@media (hover:none){
+  #library-card{
+    width: 8.5%;
+    transform: rotate(-6deg) scale(1.2);
+    opacity: 1;
+  }
+}
+
+
+
+/* Keyboard focus = same pop */
+#library-card:focus-visible{
+  transform: rotate(-7deg) scale(1.045);
+  box-shadow: 0 0 0 4px rgba(255,255,255,.65);
+  border-radius: 10px;
+}
+
+/* Ensure reveal elements never block clicks on the card */
+#waterfall-cover,
+#waterfall-scene{ pointer-events: none; z-index: 2; }
+
+@media (max-width: 720px){
+  #library-card{ width: 18%; top: 73%; left: 28%; }
+}
+
+
+
+/* Centered stag bubble with parchment texture */
+#stag-bubble.speech-bubble {
+  position: absolute;
+  left: 20%;
+  top: 25%; */
+  transform: translateX(-50%);
+  max-width: min(560px, 78vw);
+
+  /* parchment tone + texture */
+  background:
+    linear-gradient(180deg, rgba(255,240,205,.95), rgba(245,225,185,.95)),
+    url('../assets/img/parchment.jpg');
+  background-size: auto, 380px auto;
+  background-blend-mode: multiply;
+
+  color: #2b1b09;
+  border: 1px solid rgba(120,80,40,.55);
+  border-radius: 14px;
+  padding: 14px 18px;
+  text-align: center;
+  box-shadow: none;
+  z-index: 4;
+  pointer-events: none;
+  font-family: "Georgia", "Garamond", serif;
+  line-height: 1.35;
+}
+#stag-bubble.speech-bubble {
+  max-width: min(400px, 20vw); /* was 560px, 78vw */
+}
+
+.speech-bubble * { pointer-events: auto; }
+
+
+/* Small vignette */
+#waterfall-scene{
+  position:absolute; bottom:12px; right:12px;
+  width:min(350px, 80vw); background:rgba(0,0,0,.5);
+  border-radius:10px; padding:8px; box-shadow:0 12px 28px rgba(0,0,0,.5);
+  z-index:3;
+}
+#waterfall-scene img{ width:100%; height:auto; display:block; border-radius:6px; }
+
+@keyframes fadePulseSmall{ 0%{opacity:0} 60%{opacity:.9} 100%{opacity:0} }
+#library-entrance.reveal #waterfall-scene{
+  visibility: visible; animation: fadePulseSmall 3.2s ease-in-out 1 both;
+}
+
+/* Big cover (position these 3 vars to align with the doorway) */
+:root{ --cover-top: 34%; --cover-left: 43%; --cover-width: 22%; }
+#waterfall-cover{
+  position:absolute; top:var(--cover-top); left:var(--cover-left);
+  width:var(--cover-width); z-index:2; pointer-events:none; opacity:0;
+}
+#waterfall-cover img{ width:100%; height:auto; display:block; border-radius:8px; }
+
+@keyframes coverWaterfall{ 0%{opacity:0} 12%{opacity:.95} 78%{opacity:.95} 100%{opacity:0} }
+#library-entrance.reveal #waterfall-cover{
+  visibility: visible; animation: coverWaterfall 4.2s ease-in-out 1 both;
+}
+
+/* (You already had this; leaving for reference) */
+@media (max-width:720px){
+  .hotspot{ width:5.8%; }
+  #waterfall-scene{ width:min(78vw, 350px); }
+}
+#library-entrance.reveal #waterfall-scene{ animation-duration: 9s !important; }
+#library-entrance.reveal #waterfall-cover{ animation-duration: 10s !important; }
+/* Hide the stag ring but keep the hotspot active */
+#stag-hotspot{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  opacity: 0 !important;       /* invisible, still clickable */
+  cursor: pointer;
+}
+
+/* Keep a minimal outline only for keyboard users */
+#stag-hotspot:focus-visible{
+  opacity: 1;                   /* show only while focused by keyboard */
+  box-shadow: 0 0 0 3px rgba(255,255,255,.65);
+  border-radius: 9999px;
+}
+/* === Dark Arts Chamber overrides === */
+.dark-arts-grid {
+  display: grid;
+  grid-template-columns: 260px minmax(900px,1fr) 260px;
+  gap: 20px;
+  align-items: start;
+  margin-top: 12px;
+}
+
+.dark-arts-grid .toc,
+.dark-arts-grid .more {
+  position: sticky;
+  top: 10px;
+  align-self: start;
+  text-align: left;
+}
+
+.portal {
+  display: flex;
+  justify-content: center;
+  justify-self: center;
+}
+
+.portal-wrap {
+  width: min(1100px,96vw);
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #18181b;
+  box-shadow: 0 30px 80px rgba(0,0,0,.45);
+  background: #0b0b0f;
+}
+
+.portal-img {
+  display: block;
+  width: 100%;
+  height: auto;   /* keeps correct aspect ratio */
+}
+
+/* Optional responsive collapse */
+@media (max-width: 980px) {
+  .dark-arts-grid { grid-template-columns: 1fr; }
+  .dark-arts-grid .toc,
+  .dark-arts-grid .more { position: static; }
+}
+/* === Dark Arts page layout fixes === */
+
+/* Give this page a bit more total width so the center can breathe */
+.room--dark-arts {
+  width: min(1600px, 96vw);
+}
+
+/* 3 columns: 260 (left) | middle | 260 (right) */
+.dark-arts-grid{
+  display: grid;
+  grid-template-columns: 260px minmax(620px, 1fr) 260px;
+  gap: 20px;
+  align-items: start;
+  margin-top: 12px;
+}
+
+/* Keep side columns pinned and readable */
+.dark-arts-grid .toc,
+.dark-arts-grid .more{
+  position: sticky;
+  top: 10px;
+  align-self: start;
+  text-align: left;
+}
+
+/* Center the portal within the middle track */
+.portal{
+  justify-self: center;               /* centers the middle cell contents */
+  display: flex;
+  justify-content: center;
+}
+
+/* Make the art big, but never wider than the middle track */
+.portal-wrap{
+  /* 560px = 260 left + 260 right + 20 + 20 gaps */
+  width: min(1040px, calc(100vw - 560px));
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #18181b;
+  box-shadow: 0 30px 80px rgba(0,0,0,.45);
+  background: #0b0b0f;
+}
+
+/* === Dark Arts Chamber perfectly centered layout (for ~1920px screens) === */
+
+.room--dark-arts {
+  width: min(1720px, 96vw);
+  margin: 0 auto;
+}
+
+.dark-arts-grid {
+  display: grid;
+  grid-template-columns: 260px minmax(700px, 1fr) 260px;
+  gap: 28px;
+  align-items: start;
+  margin-top: 12px;
+}
+
+/* Sidebars */
+.dark-arts-grid .toc,
+.dark-arts-grid .more {
+  position: sticky;
+  top: 10px;
+  align-self: start;
+}
+.dark-arts-grid .toc { text-align: left; }
+.dark-arts-grid .more { text-align: right; } /* ✅ aligns "More Rooms" neatly on the right edge */
+
+/* Center portal */
+.portal {
+  justify-self: center;
+  display: flex;
+  justify-content: center;
+}
+
+.portal-wrap {
+  width: min(860px, calc(100vw - 608px)); /* for 1920px screens this yields ~860px */
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #18181b;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  background: #0b0b0f;
+}
+
+.portal-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Responsive collapse */
+@media (max-width: 980px) {
+  .dark-arts-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .dark-arts-grid .more {
+    text-align: left;
+  }
+  .portal-wrap {
+    width: min(100%, 900px);
+  }
+}
+/* === Under Construction Pages === */
+.room--under-construction {
+  background-color: #0b0b0d;
+  color: #f0e6d2;
+  font-family: "Georgia", serif;
+  text-align: center;
+  padding: 2rem;
+}
+
+.room--under-construction h1 {
+  font-size: 2rem;
+  color: #ffcc66;
+  text-shadow: 0 0 10px rgba(255, 204, 102, 0.6);
+  margin-bottom: 1rem;
+}
+
+.room--under-construction img {
+  width: auto;
+  max-width: 55%;
+  max-height: 60vh;
+  margin: 1.5rem auto;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+  object-fit: contain;
+}
+
+.room--under-construction p {
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1.2rem;
+}
+
+.room--under-construction a {
+  display: inline-block;
+  margin-top: 2rem;
+  background: #333;
+  color: #f0e6d2;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.room--under-construction a:hover {
+  background: #555;
+}
+/* — TOC layout — */
+.library-toc h1 { text-align:center; margin: 0 0 10px; }
+.library-toc h2 { margin: 22px 0 8px; font-size: 1.15rem; color: #f3d08a; }
+.toc-list { list-style: none; margin: 0 0 6px; padding: 0; }
+.toc-list li { margin: 6px 0 10px; }
+.toc-list a { color: #e8e8e8; text-decoration: none; }
+.toc-list a:hover { text-decoration: underline; }
+.toc-list p { margin: 3px 0 0; color:#b8c0cc; font-size:.95rem; }
+.toc-back { text-align:center; margin-top: 18px; }
+/* --- TOC Search + Timestamp --- */
+.toc-search {
+  text-align: center;
+  margin: 10px 0 6px;
+}
+#tocSearch {
+  padding: 8px 10px;
+  width: 70%;
+  max-width: 420px;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background: #18181b;
+  color: #eee;
+}
+#tocSearch::placeholder { color: #777; }
+
+.toc-updated {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #c9a85c;
+  margin-bottom: 18px;
+}
+/* === RESTORE PARMENT-STYLE SPEECH BUBBLES === */
+/* === CLEAN PARMENT-STYLE SPEECH BUBBLES (NO SHADOW) === */
+.speech-bubble {
+  position: absolute;
+  left: 2%;
+  bottom: 2%;
+  z-index: 50;
+  max-width: 56ch;
+
+  /* parchment tone + texture */
+  background:
+    linear-gradient(180deg, rgba(255,240,205,.95), rgba(245,225,185,.95)),
+    url('../assets/img/parchment.jpg');
+  background-size: auto, 380px auto;
+  background-blend-mode: multiply;
+  color: #2b1b09;
+
+  border: 1px solid rgba(120,80,40,.55);
+  border-radius: 14px;
+  padding: 12px 14px 14px;
+  line-height: 1.5;
+  font-family: "Georgia", "Garamond", serif;
+}
+
+/* parchment “tail” without shadow */
+/* .speech-bubble::after { */
+  /* content: ""; */
+  /* position: absolute; */
+  /* left: 28px; */
+  /* bottom: -14px; */
+  /* width: 18px; */
+  /* height: 18px; */
+  /* background: */
+    /* linear-gradient(180deg, rgba(255,240,205,.95), rgba(245,225,185,.95)), */
+    /* url('../assets/img/parchment.jpg'); */
+  /* background-size: auto, 380px auto; */
+  /* background-blend-mode: multiply; */
+  /* transform: rotate(45deg); */
+  /* border-left: 1px solid rgba(120,80,40,.55); */
+  /* border-bottom: 1px solid rgba(120,80,40,.55); */
+/* } */
+
+/* close button */
+.speech-bubble .bubble-close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  color: #7c5a2c;
+}
+.speech-bubble .bubble-close:hover {
+  color: #4a3217;
+}
+
+@media (max-width:640px){
+  .speech-bubble{ left:3%; right:3%; bottom:1.5%; max-width:none; }
+  .speech-bubble::after{ left:22px; }
+}
+
+
+/* === Duration Overrides === */
+#library-entrance.reveal #waterfall-scene {
+  animation-duration: 9s !important;
+}
+#library-entrance.reveal #waterfall-cover {
+  animation-duration: 10s !important;
+}
+/* ---------- Footer alignment for front door ---------- */
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px 10px;
+  background: #f8f1de; /* optional parchment tone */
+  border-top: 1px solid rgba(120,80,40,0.3);
+}
+
+footer .copyright {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  margin-top: 4px;
+}
+/* ---------- Sticky & Centered Footer ---------- */
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1; /* pushes footer down if content is short */
+}
+
+/* Footer styling */
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px 10px;
+  background: #f8f1de; /* parchment tone */
+  border-top: 1px solid rgba(120, 80, 40, 0.3);
+  margin-top: auto; /* keeps it pinned to bottom */
+}
+
+/* Optional visual refinements */
+footer .motto {
+  font-style: italic;
+  opacity: 0.8;
+  margin-bottom: 4px;
+}
+
+footer .copyright {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  margin-top: 4px;
+}
+/* =========================================================
+   Shirzan Library – Bubble Visuals & Ambient Layer
+   ========================================================= */
+
+/* --- Bubble shimmer background (optional ambient layer) --- */
+#balloon-zone {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  background: url('../assets/img/parchment.jpg') center/cover no-repeat;
+  mix-blend-mode: multiply;
+  z-index: 1; /* sits just above parchment, below text */
+}
+
+/* when bubbles active */
+#balloon-zone.show-bubbles {
+  opacity: 0.25;  /* faint shimmer overlay */
+}
+
+/* --- Speech bubbles styling with unified parchment background --- */
+.speech-bubble {
+  position: absolute;
+  background: url('../assets/img/parchment.jpg') center/cover no-repeat,
+              rgba(255, 248, 220, 0.90);
+  background-blend-mode: multiply;
+  border: 2px solid #8b4513;
+  border-radius: 18px;
+  padding: 10px 16px;
+  max-width: 280px;
+  font-family: Georgia, Garamond, serif;
+  font-size: 1rem;
+  color: #2e1d07;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.25);
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  z-index: 10;
+}
+
+.speech-bubble.show-bubble {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+/* --- Optional ambient floating bubbles (if later added in JS) --- */
+.bubble-node {
+  position: absolute;
+  bottom: -60px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  animation: floatUp 9s linear forwards;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0) scale(1); opacity: 0.6; }
+  to   { transform: translateY(-120vh) scale(1.2); opacity: 0; }
+}
+/* === ENTRANCE WIDTH STABILIZER === */
+#library-entrance {
+  width: 1100px !important;
+  max-width: 92vw !important;
+  margin: 0 auto !important;
+}
+/* === Viewport center for the front entrance (no HTML changes) === */
+/* Moves the whole #library-entrance to screen center while keeping
+   hotspot % coordinates glued to the image. */
+
+#library-entrance{
+  /* keep your existing width rules intact earlier in the file */
+  position: relative;
+  top: 50vh;                   /* push down by half the viewport height */
+  transform: translateY(-50%); /* pull up by half of its own height -> centered */
+  margin-bottom: 50vh;         /* reserves space so it won’t overlap the footer */
+  /* keeps bubbles & overlays behaving */
+  overflow: visible;
+}
+/* === Viewport Center — tuned so the PNG doesn't overshoot === */
+/* Keeps hotspot % coordinates intact (no size changes). */
+:root{
+  --entrance-shift: 46vh;         /* was 50vh; pull up slightly */
+  --entrance-bottom-space: 32vh;  /* reserve scroll space below */
+}
+
+#library-entrance{
+  top: var(--entrance-shift);
+  transform: translateY(-50%);
+  margin-bottom: var(--entrance-bottom-space);
+  /* width & z-index rules remain as in your stable block */
+}
+
+/* Tall displays: closer to perfect center */
+@media (min-height: 900px){
+  :root{
+    --entrance-shift: 50vh;
+    --entrance-bottom-space: 40vh;
+  }
+}
+
+/* Shorter displays: ease the effect to prevent cutoff */
+@media (max-height: 700px){
+  #library-entrance{
+    top: 0;
+    transform: none;
+    margin: 24px auto 40px;  /* regular flow on short viewports */
+  }
+}
+/* === FINAL CENTERING ADJUSTMENT === */
+#library-entrance {
+  position: relative !important;
+  top: 48vh !important;            /* center the image vertically */
+  transform: translateY(-50%) !important;
+  margin: 0 auto !important;
+  width: min(1100px, 92vw) !important;
+  overflow: visible !important;
+  z-index: 2 !important;
+}
+/* === Align the PNG under the existing hotspots (no hotspot edits) === */
+:root{
+  /* tweak this number until Bramble's card sits perfectly */
+  --entrance-img-shift: 26px;   /* try 22–32px range */
+}
+
+/* 1) Nudge ONLY the image down; leave hotspot % unchanged */
+#library-entrance > img{
+  margin-top: var(--entrance-img-shift) !important;
+}
+
+/* 2) Make sure hotspots sit above the image for clicks */
+.hotspot{ z-index: 7 !important; }
+#library-card{ z-index: 8 !important; }  /* card stays above */
+
+/* 3) Keep door overlays aligned visually with the shifted image */
+#waterfall-cover,
+#waterfall-scene{
+  transform: translateY(var(--entrance-img-shift)) !important;
+}
+/* === Shift ONLY the entrance PNG under the existing hotspots === */
+/* Tweak this value until the card lines up perfectly under Bramble */
+:root{ --entrance-img-shift: 28px; }  /* try 24–36px range */
+
+/* Catch direct or wrapped <img> cases */
+#library-entrance > img,
+#library-entrance img {
+  position: relative !important;
+  top: var(--entrance-img-shift) !important;
+  /* preserve your rounding/shadow */
+}
+
+/* Keep interactive layers above the image */
+.hotspot { z-index: 7 !important; }
+#library-card { z-index: 8 !important; }
+
+/* Move the door overlays by the same amount so they stay aligned */
+#waterfall-cover,
+#waterfall-scene {
+  transform: translateY(var(--entrance-img-shift)) !important;
+}
+/* ==== IMAGE ALIGNMENT: reset heavy shift and apply tiny nudge ==== */
+
+/* 0) Reset any previous margin/top shifts we tried */
+#library-entrance > img,
+#library-entrance img{
+  margin-top: 0 !important;
+  top: 0 !important;
+}
+
+/* 1) Desktop-only micro-adjust: slide ONLY the bitmap down a hair */
+@media (min-width: 721px){
+  :root{ --entrance-img-shift: 12px; }   /* tweak in 2px steps if needed */
+
+  #library-entrance > img,
+  #library-entrance img{
+    position: relative !important;
+    top: var(--entrance-img-shift) !important;
+  }
+
+  /* 2) Keep the door overlays visually locked to the art */
+  #waterfall-cover,
+  #waterfall-scene{
+    transform: translateY(var(--entrance-img-shift)) !important;
+  }
+}
+
+/* 3) Make sure clicks go to hotspots/card, not the image */
+.hotspot{ z-index: 7 !important; }
+#library-card{ z-index: 8 !important; }  /* your card is defined here originally */
+/* === FINAL: slide the entrance PNG under fixed hotspots === */
+/* Tweak this until the card is perfect under Bramble's hand */
+:root{ --entrance-img-shift: 84px; }   /* try 70–110px if needed */
+
+/* Reset any previous attempts */
+#library-entrance > img,
+#library-entrance img{
+  margin-top: 0 !important;
+  top: 0 !important;
+  transform: none !important;
+}
+
+/* Apply a pure transform shift so layout/percent hotspots don't change */
+#library-entrance > img:first-of-type{
+  position: relative !important;
+  transform: translate3d(0, var(--entrance-img-shift), 0) !important;
+  will-change: transform;
+  z-index: 1;
+}
+
+/* Keep interactive layers above the bitmap */
+.hotspot{ z-index: 7 !important; }
+#library-card{ z-index: 8 !important; }  /* card stays above hotspots */
+
+/* Move door overlays by exactly the same amount so they stay aligned */
+#waterfall-cover,
+#waterfall-scene{
+  transform: translate3d(0, var(--entrance-img-shift), 0) !important;
+  will-change: transform;
+}
+/* ---- Bubbles system (unified) ---- */
+.scene-frame { position: relative; overflow: visible; }
+
+/* Allow balloons/bubbles to overflow the image */
+.scene-frame img { display:block; }
+
+/* The bubble elements (position them with inline styles or existing CSS) */
+.bubble {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 220ms ease-in-out;
+  pointer-events: none;     /* bubbles themselves don't steal clicks */
+  z-index: 20;
+}
+.bubble.show { opacity: 1; }
+
+/* Kill blue focus ring around image-map areas/links */
+area, area:focus, area:active, a:focus, a:active { outline: none; }
+
+/* If old individual hotspots exist, neutralize them without deleting */
+.legacy-hotspot, area.legacy-hotspot { pointer-events: none !important; }
+
+/* Optional: make the big trio hotspot visibly “clickable” on mobile */
+#trioHotspot { cursor: pointer; }
+01 /* Scene container allows overflow so bubbles can float out */
+02 .scene {
+03   position: relative;
+04   overflow: visible;        /* important: let bubbles spill */
+05 }
+06 
+07 .scene-img {
+08   display: block;
+09   width: 100%;
+10   height: auto;
+11 }
+12 
+13 /* Trio hotspot: one long, responsive hit area */
+14 .hotspot {
+15   position: absolute;
+16   background: transparent;
+17   border: none;
+18   padding: 0;
+19   outline: none;
+20   cursor: pointer;
+21   -webkit-tap-highlight-color: transparent;  /* kill blue flash on mobile */
+22 }
+23 
+24 /* Example position for the trio hotspot; adjust to your image */
+25 #hotspot-trio {
+26   left: 18%;                /* tweak these 4 values for exact placement */
+27   top: 46%;
+28   width: 64%;
+29   height: 18%;
+30   z-index: 20;              /* above image & old hotspots */
+31 }
+32 
+33 /* Disable any leftover/old hotspots without deleting them */
+34 .hotspot-old {
+35   pointer-events: none !important;
+36   opacity: 0 !important;
+37   z-index: 0 !important;
+38 }
+39 
+40 /* Bubble base */
+41 .bubble {
+42   position: absolute;       /* you already place them; this preserves it */
+43   max-width: min(90vw, 520px);
+44   padding: 14px 16px;
+45   line-height: 1.35;
+46   border-radius: 10px;
+47   box-shadow: 0 6px 16px rgba(0,0,0,0.22);
+48   z-index: 30;
+49   display: none;            /* JS controls visibility */
+50   background: url('assets/img/parchment.jpg') center/cover no-repeat,
+51               rgba(255,255,255,0.85);  /* stag already had this; now all do */
+52 }
+53 
+54 /* Accessibility: when shown via JS we also remove aria-hidden */
+55 .bubble.is-visible { display: block; }
+56 
+57 /* Remove blue focus ring on any buttons/links inside bubbles */
+58 .bubble :focus { outline: none; }
+59 
+60 /* Make sure bubbles can extend outside image on small screens */
+61 @media (max-width: 768px) {
+62   .bubble {
+63     max-width: 94vw;
+64   }
+65 }
+/* --- UNIVERSAL COPYRIGHT STYLE (transparent & centered) --- */
+.room-copyright,
+.site-copyright,
+.footer-copyright {
+  background: none !important;             /* no solid fill */
+  background-color: transparent !important;
+  backdrop-filter: none !important;        /* prevent any blur or tint */
+  box-shadow: none !important;
+  border: none !important;
+  text-align: center;
+  color: #1a1307;                          /* readable dark text */
+  font-size: 0.85rem;
+  line-height: 1.3;
+  opacity: 0.8;
+  width: 100%;
+  padding: 8px 0;
+  margin-top: 12px;
+  z-index: 5;
+}
+
+/* Optional readability glow if placed on busy parchment */
+.room-copyright:hover,
+.site-copyright:hover,
+.footer-copyright:hover {
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+#stag-bubble.speech-bubble {
+  position: absolute;
+  left: 20%;
+  top: 25%;                       /* good position to start */
+  transform: translateX(-50%);
+  max-width: min(560px, 78vw);
+
+  /* parchment tone + texture */
+  background:
+    linear-gradient(180deg, rgba(255,240,205,.95), rgba(245,225,185,.95)),
+    url('../assets/img/parchment.jpg');
+  background-size: auto, 380px auto;
+  background-blend-mode: multiply;
+
+  color: #2b1b09;
+  border: 1px solid rgba(120,80,40,.55);
+  border-radius: 14px;
+
+  /* ↓ tighten bottom space */
+  padding-top: 14px;
+  padding-right: 18px;
+  padding-left: 18px;
+  padding-bottom: 6px;    /* was 14px — brings bottom up closer to text */
+
+  text-align: center;
+  box-shadow: none;
+  z-index: 4;
+  pointer-events: none;
+  font-family: "Georgia", "Garamond", serif;
+  line-height: 1.35;
+}
+#stag-bubble.speech-bubble{
+  position: absolute;
+  left: 20%;
+  top: 25%;
+  transform: translateX(-50%);
+  /* Make box track the text, not an old fixed width */
+  inline-size: fit-content;
+  max-inline-size: min(32ch, 78vw); /* ≈ 4 lines at normal text size */
+  white-space: normal;
+
+  /* Tighten padding so the bottom “comes up” under the text */
+  padding: 8px 12px 10px;
+
+  /* Parchment texture */
+  background:
+    linear-gradient(180deg, rgba(255,240,205,.95), rgba(245,225,185,.95)),
+    url('../assets/img/parchment.jpg');
+  background-size: auto, 380px auto;
+  background-blend-mode: multiply;
+
+  color: #2b1b09;
+  border: 1px solid rgba(120,80,40,.55);
+  border-radius: 12px;
+  line-height: 1.3;
+  box-shadow: none;
+  z-index: 6;              /* a touch higher so it clears overlays */
+  pointer-events: none;    /* keep it passive */
+}
+#library-entrance{ overflow: visible !important; }
+
+/* --- UNIVERSAL SPEECH BUBBLE STYLE --- */
+.speech-bubble {
+  width: auto;
+  max-width: min(480px, 70vw);
+  min-height: 4.8em;
+  max-height: 6em;
+  padding: 10px 18px;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+  background:
+    linear-gradient(180deg, rgba(255,240,205,.95), rgba(245,225,185,.95)),
+    url('../assets/img/parchment.jpg');
+  background-size: auto, 380px auto;
+  background-blend-mode: multiply;
+  color: #2b1b09;
+  border: 1px solid rgba(120,80,40,.55);
+  font-family: "Georgia", "Garamond", serif;
+  line-height: 1.3;
+}
+/* Front door stage + image */
+.front-stage {
+  display: grid;
+  place-items: center;
+  padding: clamp(12px, 3vw, 32px);
+}
+
+.front-image-wrap {
+  position: relative;     /* anchor for overlays */
+  display: inline-block;
+  line-height: 0;         /* kill inline gaps */
+}
+
+#frontImage {
+  display: block;
+  width: min(64vw, 960px);  /* <<< keep consistent page to page */
+  height: auto;
+  border-radius: 8px;
+}
+/* === Shrink-wrap balloons to text === */
+.balloon,
+.speech-bubble,
+#stag-bubble.speech-bubble {
+  display: inline-block;        /* shrink to fit text */
+  width: fit-content;           /* modern browsers */
+  max-width: 42ch;              /* wrap long lines; tune as you like */
+  height: auto;                 /* no fixed height */
+  min-height: 0;                /* kill any inherited minimums */
+  padding: 8px 12px;            /* slim, consistent breathing room */
+  box-sizing: border-box;       /* padding included in width */
+  line-height: 1.3;             /* tidy text rhythm */
+}
+
+/* keep your parchment look, but scaled nicely on small boxes */
+.balloon,
+.speech-bubble {
+  background:
+    linear-gradient(180deg, rgba(255,240,205,.95), rgba(245,225,185,.95)),
+    url('../assets/img/parchment.jpg');
+  background-size: auto, 380px auto;   /* texture, not stretched huge */
+  background-blend-mode: multiply;
+  border: 1px solid rgba(120,80,40,.55);
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,.25);
+}
+
+/* optional: keep text readable on phones */
+@media (max-width: 600px) {
+  .balloon,
+  .speech-bubble,
+  #stag-bubble.speech-bubble {
+    max-width: 38ch;
+    padding: 7px 10px;
+  }
+}
+#stag-bubble.speech-bubble {
+  position: absolute;
+  left: 20%;
+  top: 28%;  /* was likely 25% — raise this number to move the balloon DOWN */
+  transform: translateX(-50%);
+}
+#stag-bubble.speech-bubble {
+  position: absolute;
+  left: 45%;              /* centered over stag */
+  top: 29%;               /* lowered slightly to avoid crop */
+  transform: translateX(-50%);
+  display: inline-block;
+  width: fit-content;     /* shrink to fit text width */
+  max-width: 42ch;        /* wrap longer lines neatly */
+  height: auto;
+  min-height: 0;
+  padding: 8px 12px;      /* balanced breathing room */
+  line-height: 1.3;
+  box-sizing: border-box;
+
+  /* parchment tone + texture */
+  background:
+    linear-gradient(180deg, rgba(255,240,205,.95), rgba(245,225,185,.95)),
+    url('../assets/img/parchment.jpg');
+  background-size: auto, 380px auto;
+  background-blend-mode: multiply;
+
+  color: #2b1b09;
+  border: 1px solid rgba(120,80,40,.55);
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,.25);
+  text-align: center;
+  z-index: 4;
+  pointer-events: none;
+  font-family: "Georgia", "Garamond", serif;
+}
+/* Ensure bubbles can extend beyond the image/panel */
+.front-image-wrap,
+.image-wrap,
+.stage,
+.stage-inner,
+#library-hero {
+  position: relative;
+  overflow: visible !important;      /* <-- stops the cut-off */
+  -webkit-mask: none !important;     /* in case a mask was applied to the wrapper */
+          mask: none !important;
+}
+/* Bubble and parent stacking */
+.front-image-wrap,
+.image-wrap {
+  position: relative;
+  z-index: 1;
+}
+
+#stag-bubble.speech-bubble {
+  z-index: 10;  /* ensure it paints above the rounded panel */
+}

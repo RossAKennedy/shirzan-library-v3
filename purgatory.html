@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Purgatory — Shirzan Library</title>
+  <meta name="description" content="A quiet antechamber to the Library: present your card and review the Honor Code." />
+  <style>
+    /* ==== Layout (single screen, no scroll) ==== */
+    :root{ --ink:#2b1b09; --gold:#c9a85c; }
+    *{ box-sizing:border-box; }
+    html, body { height:100%; margin:0; }
+    body {
+      background:#0b0a0a;
+      color:var(--ink);
+      font-family: Georgia, Garamond, serif;
+      overflow:hidden; /* no page scroll */
+      display:grid;
+      place-items:center;
+    }
+    .stage {
+      position:relative;
+      width:min(900px, 92vw);
+      aspect-ratio: 16 / 10; /* fits your entrance painting */
+      border-radius:14px;
+      box-shadow: 0 18px 40px rgba(0,0,0,.45);
+      overflow:hidden;
+      background: #000;
+    }
+
+    /* Entrance image */
+    .entrance {
+      position:absolute; inset:0;
+      background: url('assets/img/library-entrance.png') center/cover no-repeat;
+      filter: saturate(.95) brightness(.92);
+    }
+
+    /* Single hotspot: Library Card */
+    .card-hotspot {
+      position:absolute;
+      /* tuned to bottom-left hand area from your front door */
+      left: 18%;
+      bottom: 26%;
+      width: 18%;
+      height: 18%;
+      cursor:pointer;
+      outline: none;
+      border-radius: 12px;
+      /* subtle visible focus ring for keyboard users */
+    }
+    .card-hotspot:focus-visible { outline:3px solid rgba(201,168,92,.8); outline-offset:2px; }
+
+    /* Bottom-center parchment bubble */
+    .speech-bubble {
+      position:absolute;
+      left:50%; bottom: 22px;
+      transform: translateX(-50%);
+      max-width: min(560px, 78vw);
+      padding: 14px 18px;
+      text-align:center;
+      color:#2b1b09;
+      border:1px solid rgba(120,80,40,.45);
+      border-radius:14px;
+      background:
+        linear-gradient(180deg, rgba(255,240,205,.94), rgba(245,225,185,.94)),
+        url('assets/img/parchment.jpg');
+      background-size: auto, 380px auto;
+      background-blend-mode: multiply;
+      box-shadow:none;
+      line-height:1.38;
+      z-index:2;
+    }
+    .speech-bubble .title {
+      font-weight:700; letter-spacing:.4px; margin-bottom:6px;
+    }
+    .speech-actions { margin-top:10px; display:flex; gap:10px; justify-content:center; }
+    .btn {
+      padding:8px 12px; border-radius:10px;
+      border:1px solid rgba(120,80,40,.45);
+      background:#f3dfb4; cursor:pointer; font-weight:600;
+      text-decoration:none; color:inherit;
+    }
+    .btn:hover { filter:brightness(1.05); }
+    .btn:active { transform: translateY(1px); }
+
+    /* small help tag near the hotspot */
+    .hint {
+      position:absolute; left: 18%; bottom: 17%;
+      transform: translateX(-8%);
+      background: rgba(0,0,0,.55);
+      color:#f7e8c8; padding:6px 8px; border-radius:8px;
+      font-size: 14px; letter-spacing:.2px;
+    }
+
+    /* Fade-in */
+    .fade { animation: fade 700ms ease both; }
+    @keyframes fade { from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);} }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <div class="entrance" aria-hidden="true"></div>
+<!-- Library card hotspot -->
+<a id="cardHotspot" class="card-hotspot" href="toc.html" aria-label="Present Library Card"></a>
+
+<!-- Speech bubble -->
+<div id="cardSpeech" class="speech-bubble fade">
+  <div class="title">Honor Code</div>
+  <div class="body">
+    In the realm we must be able to trust one another, that is why we live by an honor code. We do not lie, cheat, or steal, nor do we tolerate those who do. <br/>
+     Rules are guiderails, not to harm you but to protect you. They are a mercy.
+	 Now, take another card and you may go back in.
+  </div>
+</div>
+<style>
+  /* ...other styles above this... */
+
+  /* KEEP your base block exactly as-is */
+  #library-card {
+    position: absolute;
+    top: 67%;
+    left: 19.8%;
+    width: 4.3%;
+    transform: rotate(-9deg) scale(1);
+    transform-origin: 58% 42%;
+    z-index: 6;
+    display: block;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+    filter: drop-shadow(0 8px 22px rgba(0,0,0,.45));
+    transition: transform .18s ease, filter .18s ease, opacity .18s ease;
+  }
+
+  #library-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  #library-card:hover {
+    transform: rotate(-9deg) scale(1.05);
+    filter: drop-shadow(0 12px 28px rgba(0,0,0,.55));
+  }
+</style>
+
+    Honor bubble
+    <!-- <div class="speech-bubble fade" role="dialog" aria-live="polite"> -->
+      <!-- <div class="title">Honor Code</div> -->
+      <!-- <div class="body"> -->
+        <!-- We do not lie, cheat, or steal, nor do we tolerate those who do. <br/> -->
+        <!-- Present your library card to enter the stacks. -->
+      <!-- </div> -->
+      <!-- <div class="speech-actions"> -->
+        <!-- <button class="btn" id="enterBtn" title="Present your card">Present Card</button> -->
+        <!-- <a class="btn" href="toc.html" title="Go to the Table of Contents">Go to TOC</a> -->
+      <!-- </div> -->
+    <!-- </div> -->
+<main id="page">
+  <div id="library-entrance">
+    <img src="assets/img/library-entrance.png" alt="">
+
+    <a id="library-card" href="toc.html" aria-label="Enter the Shirzan Library">
+      <img src="assets/img/library-card.png" alt="Shirzan Library Card">
+    </a>
+  </div>
+</main>
+
+   
+  <script>
+    // Keep it tiny & self-contained
+    const enterBtn = document.getElementById('enterBtn');
+    const card = document.getElementById('cardHotspot');
+
+    enterBtn.addEventListener('click', () => { card.click(); });
+    // Optional: allow Enter/Space on body to proceed
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { card.click(); }
+    });
+  </script>
+</body>
+</html>

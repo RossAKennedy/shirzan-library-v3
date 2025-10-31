@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark Arts Room</title>
+
+  <link rel="stylesheet" href="css/dark-arts.css">
+</head>
+<body>
+  <div class="page">
+    <!-- Left column -->
+    <aside class="toc">
+      <h2>Dark Arts Archives</h2>
+      <ul>
+        <li><a href="purgatory.html">Forbidden Scrolls</a></li>
+        <li><a href="under-construction-d.html">Market of Mischief   </a></li>
+        <li><a href="under-construction-d.html">The Iron Maiden</a></li>
+        <li><a href="under-construction-d.html">Cages of Crow and Poe</a></li>
+      </ul>
+    </aside>
+
+    <!-- Center column -->
+    <section class="center">
+      <div id="stage" class="stage">
+        <div class="image-wrap">
+          <img id="pokerImage" class="poker-image"
+               src="assets/img/dark-arts-poker.png"
+               alt="Dark Arts Poker Table">
+
+          <!-- Overlay anchored to image box -->
+          <div class="overlay">
+            <!-- Hotspots -->
+            <button class="hotspot" data-balloon="iron"
+                    style="top:19%; left:2%; width:7%; height:10%;"></button>
+            <button class="hotspot" data-balloon="poe"
+                    style="top:21%; left:49%; width:6%; height:8%;"></button>
+            <button class="hotspot" data-balloon="squirrel"
+                    style="top:56%; left:81%; width:4%; height:4%;"></button>
+            <button class="hotspot" data-balloon="dog"
+                    style="top:63%; left:26%; width:9%; height:8%;"></button>
+            <button class="hotspot" data-balloon="crow"
+                    style="top:37%; left:37%; width:4%; height:4%;"></button>
+            <button class="hotspot" data-balloon="wolf,sheep,donkey"
+                    style="top:50%; left:28%; width:40%; height:6%;"></button>
+
+            <!-- Balloons -->
+            <div id="balloon-iron" class="balloon" style="top:5%; left:6%; min-width:18ch;">
+              <p><strong>Iron Maiden</strong>: Help! Help! I'm being repressed.</p>
+            </div>
+            <div id="balloon-poe" class="balloon" style="top:10%; left:30%; min-width:14ch;">
+              <p><strong>Poe</strong>: This room has Poe-tential!</p>
+            </div>
+            <div id="balloon-squirrel" class="balloon" style="top:70%; left:70%; min-width:18ch;">
+              <p><strong>Squirrel</strong>: Just look at the size of my nuts.</p>
+            </div>
+            <div id="balloon-dog" class="balloon" style="top:75%; left:22%; min-width:18ch;">
+              <p><strong>Dog</strong>: Ruff hand, but we play the cards we are delt. </p>
+            </div>
+            <div id="balloon-crow" class="balloon" style="top:12%; left:35%; min-width:16ch;">
+              <p><strong>Crow</strong>: Play fair. No one eats crow here tonight.</p>
+            </div>
+            <div id="balloon-wolf" class="balloon" style="top:24%; left:25%; min-width:12ch;">
+              <p><strong>Wolf</strong>: Donk, I bet I know what you got.</p>
+            </div>
+            <div id="balloon-sheep" class="balloon" style="top:24%; left:35%; min-width:12ch;">
+              <p><strong>Sheep</strong>: I don't give a lamb.</p>
+            </div>
+            <div id="balloon-donkey" class="balloon" style="top:24%; left:50%; min-width:12ch;">
+              <p><strong>Donkey</strong>: To assume makes an ass out of u and me.</p>
+            </div>
+          </div> <!-- end overlay -->
+        </div>   <!-- end image-wrap -->
+      </div>     <!-- end stage -->
+	  <!-- Poe scroller under the image -->
+<div class="poe-scroll" aria-label="Scrolling excerpt from Poe’s “The Raven”">
+  <div class="poe-scroll-inner">
+    <p><em>Once upon a midnight dreary, while I pondered, weak and weary,</em></p>
+    <p>Over many a quaint and curious volume of forgotten lore—</p>
+    <p>While I nodded, nearly napping, suddenly there came a tapping,</p>
+    <p>As of some one gently rapping, rapping at my chamber door.</p>
+    <p>“’Tis some visitor,” I muttered, “tapping at my chamber door—</p>
+    <p>Only this and nothing more.”</p>
+  </div>
+</div>
+
+<!-- Page/room copyright -->
+<div class="room-copyright">
+  © House of Shirzan — All original text & layout. Public-domain excerpt from Edgar Allan Poe’s <em>The Raven</em>.
+</div>
+
+    </section>
+
+    <!-- Right column -->
+    <aside class="toc">
+      <h2>Further Reading</h2>
+      <ul>
+        <li><a href="under-construction-d.html">On the Nature of Mischief</a></li>
+        <li><a href="under-construction-alchemy.html">Alchemy and Ethics</a></li>
+        <li><a href="toc.html">Return to the Shirzan Library</a></li>
+      </ul>
+    </aside>
+  </div> <!-- end .page -->
+
+  <!-- JS -->
+  <script defer src="js/dark-arts.js"></script>
+</body>
+</html>

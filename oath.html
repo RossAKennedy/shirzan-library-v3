@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Integrity Oath — Dark Arts</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+  font-family: Georgia, Garamond, serif;
+  background: url('assets/img/parchment-background-canon.png') no-repeat center center fixed;
+  background-size: cover;
+  color: #2b1b09;
+  margin: 0;
+  padding: 0;
+}
+
+    .wrap {
+      max-width: 720px;
+      margin: 6vh auto;
+      background: rgba(255,240,205,0.92);
+      border: 1px solid rgba(120,80,40,0.35);
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 0 14px rgba(0,0,0,.2);
+    }
+    h1 { margin: 0 0 10px; font-size: 28px; }
+    em { display:block; font-style: italic; line-height: 1.5; }
+    label { display: flex; gap: 10px; margin-top: 10px; align-items: flex-start; cursor: pointer; }
+    button {
+      margin-top: 12px; padding: 10px 14px; border-radius: 10px;
+      background: #f3dfb4; border: 1px solid rgba(120,80,40,.4);
+      font-weight: 600; cursor: pointer;
+    }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    .meta { margin-top: 10px; font-size: 14px; }
+    a { color: #2b1b09; text-decoration: none; }
+    a:hover { color: #c9a85c; text-decoration: underline; }
+  </style>
+  <script>
+    const OATH_KEY = "shirzan.darkarts.oath.v1";
+    const TESTING_MODE = true; // ← set to false for final release
+
+    function hasOath() {
+      try { return localStorage.getItem(OATH_KEY) === "yes"; }
+      catch(e) { return false; }
+    }
+    function saveOath() {
+      try { localStorage.setItem(OATH_KEY, "yes"); } catch(e){}
+    }
+    function resetOath() {
+      localStorage.removeItem(OATH_KEY);
+      alert("Oath has been reset. Reload the page to take it again.");
+    }
+    function onAgree() {
+      document.getElementById('enterBtn').disabled =
+        !document.getElementById('agree').checked;
+    }
+    function enter() {
+      saveOath();
+      location.href = "dark-arts.html";
+    }
+    window.addEventListener("DOMContentLoaded", () => {
+      if (!TESTING_MODE && hasOath()) {
+        window.location.replace("dark-arts.html");
+      }
+    });
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Integrity Oath</h1>
+    <p>Before entering the Dark Arts (Forbidden Scrolls), you must pledge integrity and maturity.</p>
+    <div class="oath-box">
+      <p><em>
+        “I am over 21 years of age and will not touch the Forbidden Scrolls without proper permission.
+        I will seek wisdom, not mischief; keep trust, honor consent, and accept the consequences
+        of what I choose to open.”
+      </em></p>
+      <label>
+        <input type="checkbox" id="agree" onchange="onAgree()">
+        <span>I accept this oath and understand that access may be revoked if I violate this pledge.</span>
+      </label>
+      <button id="enterBtn" disabled onclick="enter()">Enter the Dark Arts</button>
+    </div>
+
+    <div class="meta">
+      <a href="toc.html">← Back to the Table of Contents</a><br>
+      <a href="#" onclick="resetOath();return false;">Reset Oath (for testing)</a>
+    </div>
+  </div>
+</body>
+</html>

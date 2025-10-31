@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shirzan Library — Table of Contents</title>
+
+  <!-- TOC Styles -->
+  <link rel="stylesheet" href="css/toc.css?v=1" />
+  <link rel="preload" as="image" href="assets/img/parchment.png">
+<!-- Favicons for House of Shirzan -->
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/img/android-chrome-512x512.png">
+<link rel="apple-touch-icon" sizes="512x512" href="assets/img/android-chrome-512x512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/img/android-chrome-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/img/android-chrome-512x512.png">
+<link rel="shortcut icon" href="assets/img/favicon.ico">
+<link rel="icon" type="image/png" href="../assets/img/under-construction.png">
+
+<!-- Optional theme colors for mobile -->
+<meta name="theme-color" content="#d9c7a3">  <!-- parchment gold -->
+<meta name="msapplication-TileColor" content="#d9c7a3">
+
+</head>
+
+<body>
+  <div class="toc-page">
+    <!-- Header strip -->
+    <header class="toc-header">
+      <a class="crest-home" href="index.html" title="Back to the Front Door">
+        <img src="assets/img/crest-canon.png" alt="House of Shirzan Crest" />
+      </a>
+      <div class="title-wrap">
+        <h1>Shirzan Library</h1>
+        <p class="subtitle">Table of Contents</p>
+      </div>
+    </header>
+
+    <!-- 3-column frame -->
+    <main class="toc-grid">
+     <!-- Column 1 -->
+<section class="toc-col">
+  <h2>🏰 House of Shirzan</h2>
+  <ul class="toc-list">
+    <li>
+      <a href="https://glimmerglass-book1.netlify.app/"
+         target="_blank" rel="noopener noreferrer">
+         Tales from the Glimmerglass — The Waters of the White Stag
+      </a>
+    </li>
+  </ul>
+
+  <h2 class="mt">Companions</h2>
+  <ul class="toc-list">
+   <li><a href="assets/under-construction.html">Parent's Companion to Glimmerglass</a></li>
+    <li><a href="assets/under-construction.html">Glimmerglass Journey Kit</a></li>
+    <li><a href="assets/under-construction.html">Bramble's Scrolls</a></li>
+  </ul>
+</section>
+
+
+ <!-- Column 2 -->
+<section class="toc-col">
+  <h2>🏰 Castle Classroom</h2>
+  <ul class="toc-list">
+    <li>
+      <a href="https://castle-classroom-prototype.netlify.app/"
+         target="_blank" rel="noopener noreferrer">
+        Prototype Classroom
+      </a>
+    </li>
+
+    <!-- Restricted section (oath only, no direct Dark Arts link) -->
+    <li class="toc-subhead">🕯️ Dark Arts</li>
+    <li>
+      <a href="oath.html">The Oath of Integrity</a> ↗
+    </li>
+
+    <li>
+      <a href="under-construction.html">The Compass of Shirzan</a>
+    </li>
+  </ul>
+</section>
+
+<!-- Column 3 -->
+<section class="toc-col">
+  <h2>📚 Teacher / Parent Portals</h2>
+  <ul class="toc-list">
+    <li>
+      <a href="https://shirzan-library-v1.netlify.app/"
+         target="_blank" rel="noopener noreferrer">
+        Library intro and portals
+      </a>
+    </li>
+    <li>
+      <a href="https://shirzan-library.netlify.app/assets/pdfs/Teacher_Parent_Barter_Page_ASCII_Clean.pdf"
+         target="_blank" rel="noopener noreferrer">
+        Our Barter system
+      </a>
+    </li>
+    <li>
+      <a href="under-construction.html">Honor Code</a>
+    </li>
+  </ul>
+</section>
+<section class="toc-note-wide">
+  <h3>📜 A Note to All Travellers</h3>
+  <p>
+    I have built this library for all who desire to seek and share knowledge.  
+    All you see here was crafted between <strong>July 13, 2025</strong> and <strong>October 21, 2025</strong>.  
+    I wrote the code, but I don’t have the time to write every book and scroll to fill the shelves.  
+    <br><br>
+    I am inviting <strong>Teachers</strong> and <strong>Parents</strong> to join me in this endeavor.  
+    Come help if you will — join me on <a href="https://www.patreon.com/HouseofShirzan" target="_blank">Patreon</a>    
+    or contact me via the portals at the bottom of the  
+    <em>Intro to the Library and Portals</em> page.
+  </p>
+  <img src="assets/img/patreon-qr.png" alt="Join us on Patreon" class="qr-code">
+</section>
+
+
+
+    </main>
+
+    <!-- Footer strip -->
+    <footer class="toc-footer">
+      <a class="back" href="index.html" aria-label="Back to the front door">← Back to the Front Door</a>
+      <span class="motto">Avise la fin</span>
+      <span class="copyright">
+        <span id="toc-year"></span> © Ross A. Kennedy · House of Shirzan — All rights reserved.
+      </span>
+    </footer>
+  </div>
+
+  <!-- Page-specific helpers -->
+  <script>
+  // Default UC page for this site/folder:
+  window.UC_DEFAULT = "restricted/under-construction.html";
+
+  document.addEventListener('click', function (e) {
+    const a = e.target.closest && e.target.closest('a.locked, a[data-locked="true"]');
+    if (!a) return;
+    e.preventDefault();
+    // Allow per-link override via data-uc, else use default
+    const target = a.dataset.uc || window.UC_DEFAULT;
+    // Resolve relative to current page (works with file:// and Netlify)
+    window.location.href = new URL(target, location.href).href;
+  });
+</script>
+
+</body>
+</html>

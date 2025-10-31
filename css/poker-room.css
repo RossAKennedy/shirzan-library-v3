@@ -1,0 +1,380 @@
+/* =========================================
+   Poker Room — Clean CSS Drop-in
+   ========================================= */
+
+/* --- Base / reset --- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  color: #2b1b09;
+  text-align: center;
+
+  /* Full-page parchment */
+  background-image: url('../assets/img/parchment-background-canon.png');
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+/* Optional panel card look (your side columns use this nicely) */
+.panel {
+  background: rgba(255, 248, 225, .85);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.15);
+  padding: 1rem 1.25rem;
+}
+
+/* --- Image area --- */
+.poker-image-wrap {
+  /* DO NOT change this; it allows absolute hotspots */
+  position: relative;
+  width: max-content;
+  margin: 0 auto;   /* keeps the scene centered */
+  z-index: 1;
+}
+
+.poker-image-wrap img,
+.poker-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: none;
+  box-shadow: 0 10px 25px rgba(0,0,0,.2);
+}
+
+/* --- Hotspots --- */
+.hotspot {
+  position: absolute;
+  width: 40px;     /* just the interactive hit area—your positions live in HTML */
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 3;      /* above the image, below balloons (balloons z=4) */
+}
+
+/* Keep trio individuals inert (trio sequence controls them) */
+.wolf-hotspot,
+.sheep-hotspot,
+.donkey-hotspot {
+  pointer-events: none !important;
+  cursor: default !important;
+}
+
+/* Reactivate these */
+.poe-hotspot,
+.dog-hotspot,
+.squirrel-hotspot,
+.crow-hotspot,
+.iron-maiden-hotspot {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+/* --- Balloons --- */
+.balloon {
+  position: absolute;
+  z-index: 4;
+  display: none;        /* JS will set display:block when needed */
+  opacity: 0;           /* JS fades to 1; fades back to 0 on hide */
+  transition: opacity 300ms ease-out;
+
+  /* Sizing & legibility */
+  padding: 10px 15px;
+  border-radius: 8px;
+  max-width: 300px;
+  min-width: 150px;
+  white-space: normal;
+  word-wrap: break-word;
+  line-height: 1.35;
+
+  /* Parchment look on balloons */
+  background-image: url('../assets/img/parchment-background-canon.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: rgba(241, 225, 179, 0.92);
+  color: #2b1b09;
+  text-shadow: 0 1px 0 rgba(255,255,255,.25);
+  box-shadow: 0 0 15px rgba(0,0,0,.2);
+}
+
+/* IMPORTANT: ensure no CSS auto-hover forces balloons open.
+   If you had rules like `.hotspot:hover + .balloon { display:block; }` before,
+   they are intentionally NOT included here. */
+
+/* --- Utility classes --- */
+.hidden     { display: none !important; }
+.invisible  { visibility: hidden !important; }
+
+/* --- Responsive niceties --- */
+@media (max-width: 900px) {
+  .balloon { max-width: 240px; }
+}
+
+@media (max-width: 640px) {
+  .balloon { max-width: 200px; padding: 8px 10px; }
+}
+/* ======== APPEND-ONLY PATCH (keeps all your hotspot positions) ======== */
+
+/* Full-page parchment, no layout changes */
+body {
+  background-image: url('../assets/img/parchment-background-canon.png') !important;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+/* Stop any auto-hover from forcing balloons open */
+.hotspot:hover + .balloon { display: none !important; opacity: 0 !important; }
+
+/* Standardize balloons (JS will show/hide + fade) */
+.balloon {
+  position: absolute;
+  z-index: 4;
+  display: none;                /* JS toggles to block */
+  opacity: 0;                   /* JS animates to 1 */
+  transition: opacity 300ms ease-out;
+
+  padding: 10px 15px;
+  border-radius: 8px;
+  max-width: 300px;
+  min-width: 150px;
+  white-space: normal;
+  word-wrap: break-word;
+  line-height: 1.35;
+
+  /* Parchment texture (forced) */
+  background-image: url('../assets/img/parchment-background-canon.png') !important;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: rgba(241, 225, 179, 0.92);
+  color: #2b1b09;
+  text-shadow: 0 1px 0 rgba(255,255,255,.25);
+  box-shadow: 0 0 15px rgba(0,0,0,.2);
+}
+
+/* Trio individuals always inert; trio hotspot runs the sequence */
+.wolf-hotspot,
+.sheep-hotspot,
+.donkey-hotspot {
+  pointer-events: none !important;
+  cursor: default !important;
+}
+
+/* Reactivate these hotspots */
+.poe-hotspot,
+.dog-hotspot,
+.squirrel-hotspot,
+.crow-hotspot,
+.iron-maiden-hotspot {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+/* Keep base hotspot definition light but safe (won’t move your positions) */
+.hotspot {
+  position: absolute;
+  background: transparent;
+  border: none;
+  z-index: 3;   /* beneath balloons, above image */
+}
+/* === LAYOUT RESCUE (place near end of CSS) === */
+
+/* 3-column layout on desktop, collapses on small screens */
+.grid-3 {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+/* If something forced a one-column stack, smack it back */
+.grid-3 > * {
+  min-width: 0;
+}
+
+/* Phone/tablet: stack intentionally */
+@media (max-width: 900px) {
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* === SCENE & OVERLAYS === */
+#library-scene {
+  position: relative;             /* anchor for absolute hotspots */
+  overflow: visible !important;   /* let balloons overflow edge */
+  isolation: isolate;             /* create a new stacking context */
+}
+
+/* Make sure the image behaves predictably */
+#library-scene img.scene-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Generic hotspot positioning (percent-based) */
+.hotspot,
+#hotspot-trio {
+  position: absolute;
+  transform: translate(-50%, -50%);   /* center on the point */
+  z-index: 5;
+}
+
+/* Old stray hotspots: bury them just in case */
+.hotspot-old,
+.wolf-hotspot,
+.sheep-hotspot,
+.donkey-hotspot {
+  pointer-events: none !important;
+  opacity: 0 !important;
+  z-index: 0 !important;
+}
+
+/* Balloons/bubbles: visible when JS toggles .is-visible */
+.bubble {
+  position: absolute;
+  max-width: min(420px, 70vw);
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;           /* they don’t catch clicks */
+  transition: opacity 160ms ease;
+}
+
+/* Turned on by JS */
+.bubble.is-visible {
+  opacity: 1;
+}
+
+/* Ensure bubbles can overflow their parent containers */
+#library-scene,
+#library-scene * {
+  overflow: visible !important;
+}
+/* === POKER ROOM REPAIR (restore 3 columns + hotspot layering) === */
+
+#poker-room {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  #poker-room { grid-template-columns: 1fr; }
+}
+
+/* keep image + hotspot overlay stable */
+#poker-scene {
+  position: relative;
+  overflow: visible !important;
+  isolation: isolate;
+}
+
+#poker-scene img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* hotspots */
+.hotspot,
+#hotspot-trio {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+/* bubbles (balloons) */
+.bubble {
+  position: absolute;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.bubble.is-visible {
+  opacity: 1;
+}
+
+/* disable leftovers */
+.hotspot-old,
+.wolf-hotspot,
+.sheep-hotspot,
+.donkey-hotspot {
+  pointer-events: none !important;
+  opacity: 0 !important;
+  z-index: 0 !important;
+}
+
+#poker-scene, #poker-scene * {
+  overflow: visible !important;
+}
+/* === POKER ROOM RESCUE (3 columns + overlays) === */
+
+#poker-room {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  #poker-room { grid-template-columns: 1fr; }
+}
+
+/* Anchor for absolute hotspots + allow balloons to overflow */
+#poker-scene {
+  position: relative;
+  overflow: visible !important;
+  isolation: isolate;
+}
+
+#poker-scene img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Hotspots */
+.hotspot,
+#hotspot-trio {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+/* Balloons (bubbles) */
+.bubble {
+  position: absolute;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.bubble.is-visible { opacity: 1; }
+
+/* Kill leftover individual hotspots */
+.hotspot-old,
+.wolf-hotspot,
+.sheep-hotspot,
+.donkey-hotspot {
+  pointer-events: none !important;
+  opacity: 0 !important;
+  z-index: 0 !important;
+}
+
+/* Ensure nothing clips balloons */
+#poker-scene, #poker-scene * { overflow: visible !important; }
